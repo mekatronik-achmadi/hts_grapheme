@@ -94,6 +94,7 @@
 		\item Memahami akses shell atau terminal ke suatu alamat directory/folder.
 		\item Memahami struktur directory/folder dan paham pindah alamatnya.
 		\item Cukup familiar dengan bahasa Unix shell (Bash).
+		\item Cukup familiar dengan instalasi paket di distro yang digunakan.
 		\item Cukup kenal dengan bahasa bantu Perl dan Python.
 		\item Tidak alergi pemrograman.
 		\item Paham menggunakan Google dalam English.
@@ -190,5 +191,301 @@
 		
 		
 	\end{itemize}
+
+	\subsection{Instalasi Paket Dasar}
+	
+	Selanjutnya adalah instalasi kebutuhan dasar yang telah tersedia di repository distro yang anda pakai.
+	Paket yang dibutuhkan adalah:
+	
+	\begin{itemize}
+		\item compiler-toolchain atau build-system.
+		\item editor cli gawk.
+		\item alternatif shell csh.
+		\item pustaka pemrograman libx11.
+		\item pustaka pemrograman ncurses5.
+		\item sound processor sox.
+	\end{itemize}
+
+	Untuk instalasi ini, anda mungkin akan butuh koneksi internet dan hak akses root/sudo. \\
+	
+	Berikut perintah untuk instalasi di distro Ubuntu:
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+sudo apt-get install csh gawk sox libx11-dev gcc-multilib libncurses5-dev
+	\end{minted}
+	
+	Untuk distro Arch-Linux:
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+sudo pacman -S tcsh gawk sox libx11 gcc-multilib 
+	\end{minted}
+	
+	ditambah paket ncurses5-compat-libs dari AUR:\\
+	\url{https://aur.archlinux.org/packages/ncurses5-compat-libs/}
+	
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+sudo pacman -U ncurses5-compat-libs*
+	\end{minted}
+	
+	\newpage
+	\subsection{Persiapan}
+	
+	Berikut langkah persiapan instalasi.
+	
+	\begin{enumerate}
+		\item buat folder yang berisi semua paket source yang telah dikumpulkan.
+		Contoh disini adalah di alamat \textbf{\textasciitilde/HTS/install}.
+		
+		\item Salin semua paket source ke dalam folder tersebut.
+		
+		\item Tentukan alamat folder tujuan instalasi.
+		Contoh disini adalah di alamat \textbf{\textasciitilde/.hts\_sptk}
+		
+		\item Buka jendela terminal baru.
+		
+		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export SOURCE_DIR=~/HTS/install
+export TARGET_DIR=~/.hts_sptk
+		\end{minted}
+		
+		\item Check file di folder paket sumber.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+ls -1 $SOURCE_DIR
+		\end{minted}
+		
+		dimana hasil yang diharapkan.
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+festival-2.5.0-release.tar.gz
+festlex_CMU.tar.gz
+festlex_OALD.tar.gz
+festlex_POSLEX.tar.gz
+festvox-2.8.0-release.tar.gz
+festvox_cmu_us_ahw_cg.tar.gz
+festvox_cmu_us_aup_cg.tar.gz
+festvox_cmu_us_awb_arctic_hts.tar.gz
+festvox_cmu_us_awb_cg.tar.gz
+festvox_cmu_us_axb_cg.tar.gz
+festvox_cmu_us_bdl_cg.tar.gz
+festvox_cmu_us_clb_cg.tar.gz
+festvox_cmu_us_fem_cg.tar.gz
+festvox_cmu_us_gka_cg.tar.gz
+festvox_cmu_us_jmk_cg.tar.gz
+festvox_cmu_us_ksp_cg.tar.gz
+festvox_cmu_us_rms_cg.tar.gz
+festvox_cmu_us_rxr_cg.tar.gz
+festvox_cmu_us_slt_cg.tar.gz
+festvox_don.tar.gz
+festvox_kallpc16k.tar.gz
+festvox_kedlpc16k.tar.gz
+festvox_rablpc16k.tar.gz
+flite-2.0.0-release.tar.bz2
+HDecode-3.4.1.tar.gz
+HTK-3.4.1.tar.gz
+HTK-samples-3.4.1.tar.gz
+HTS-2.3_for_HTK-3.4.1.tar.bz2
+hts_engine_API-1.10.tar.gz
+speech_tools-2.5.0-release.tar.gz
+SPTK-3.10.tar.gz
+	\end{minted}
+	
+	\item buat folder tujuan.
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+mkdir -p $TARGET_DIR
+	\end{minted}
+	
+	\item Anda dapat menutup jendela terminal/shell.
+		
+	\end{enumerate}
+
+	\newpage
+	\subsection{Extraksi}
+	
+	Selanjutnya adalah ekstraksi semua paket sources.
+	Berikut langkahnya:
+	
+	\begin{enumerate}
+		\item Buka jendela terminal baru.
+		
+		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export SOURCE_DIR=~/HTS/install
+export TARGET_DIR=~/.hts_sptk
+		\end{minted}
+		
+		\item Masukkan perintah ekstraksi untuk semua paket:
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+tar zxvf $SOURCE_DIR/SPTK-3.10.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/HTK-3.4.1.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/HDecode-3.4.1.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/HTK-samples-3.4.1.tar.gz -C $TARGET_DIR
+tar jxvf $SOURCE_DIR/HTS-2.3_for_HTK-3.4.1.tar.bz2 -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/hts_engine_API-1.10.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/speech_tools-2.5.0-release.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festival-2.5.0-release.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festlex_CMU.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festlex_POSLEX.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festlex_OALD.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_kallpc16k.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_rablpc16k.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_kedlpc16k.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_ahw_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_aup_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_awb_arctic_hts.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_awb_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_axb_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_bdl_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_clb_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_fem_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_gka_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_jmk_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_ksp_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_rms_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_rxr_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox_cmu_us_slt_cg.tar.gz -C $TARGET_DIR
+tar zxvf $SOURCE_DIR/festvox-2.8.0-release.tar.gz -C $TARGET_DIR
+tar jxvf $SOURCE_DIR/flite-2.0.0-release.tar.bz2 -C $TARGET_DIR
+ls -1 $TARGET_DIR
+		\end{minted}
+		
+		\item setelah baris perintah terakhir dieksekusi, maka hasil yang diharapkan:
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+ChangeLog
+COPYING
+festival
+festvox
+flite-2.0.0-release
+htk
+HTS-2.3_for_HTK-3.4.1.patch
+HTS_Document.pdf
+hts_engine_API-1.10
+INSTALL
+README
+samples
+speech_tools
+SPTK-3.10
+		\end{minted}
+		
+		\item anda dapat menutup jendela terminal/shell.
+		
+	\end{enumerate}
+	
+	\newpage
+	\subsection{Build dan Install}
+	
+	Selanjutnya adalah langkah instalasi setiap komponen.
+	
+	\begin{enumerate}
+		\item Buka jendela terminal baru.
+		
+		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export SOURCE_DIR=~/HTS/install
+export TARGET_DIR=~/.hts_sptk
+		\end{minted}
+		
+		\item Jendela teminal/shell ini yang akan digunakan untuk instalasi semua komponen.
+		Jangan menutup atau membuka jendela baru.
+		
+		\item Berikutnya perintah instalasi tiap komponen.
+	\end{enumerate}
+
+	\subsubsection{SPTK}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/SPTK-3.10
+./configure --prefix=$TARGET_DIR
+make all
+make install
+	\end{minted}
+	
+	\subsubsection{HTK}
+	
+	Untuk Ubuntu:
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/htk
+patch -p1 < ../HTS-2.3_for_HTK-3.4.1.patch
+./configure CFLAGS=-DARCH=linux --prefix=$TARGET_DIR
+make all
+make install
+make hdecode
+make install-hdecode
+	\end{minted}
+	
+	Untuk Arch-Linux:
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/htk
+patch -p1 < ../HTS-2.3_for_HTK-3.4.1.patch
+./configure --prefix=$TARGET_DIR
+make all
+make install
+make hdecode
+make install-hdecode
+	\end{minted}
+	
+	\subsubsection{HTS}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/hts_engine_API-1.10
+./configure --prefix=$TARGET_DIR
+make all
+make install
+	\end{minted}
+	
+	\subsubsection{Flite}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/flite-2.0.0-release
+./configure --prefix=$TARGET_DIR
+make all
+make install
+	\end{minted}
+	
+	\newpage
+	\subsubsection{Speech-Tools}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/speech_tools
+./configure --prefix=$TARGET_DIR
+make all
+make install
+	\end{minted}
+	
+	\subsubsection{Festival}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/festival
+./configure --prefix=$TARGET_DIR
+make all
+make install
+	\end{minted}
+	
+	\subsubsection{FestVox}
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+cd $TARGET_DIR/festvox
+./configure --prefix=$TARGET_DIR
+sed -i "s#NUL)#NULL)#g" src/vc/src/sub/gmm_sub.cc
+make all
+	\end{minted}
+	
+	Instalasi seluruh komponen telah selesai, maka anda menutup jendela terminal/shell.
+	
+	\subsection{Tools EnVars}
+	
+	Selanjutnya untuk dapat menggunakan tools yang telah diinstal,
+	anda perlu men-set variable lingkungan (Environment Variables atau EnVars),
+	sehingga shell/terminal dapat mengakses tools tersebut.
+	
+	Jika contoh dalam panduan ini menggunakan alamat instalasi \textbf{\textasciitilde/.hts\_sptk},
+	maka perintah set envars:
+	
+	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export TARGET_DIR=~/.hts_sptk
+
+export PATH=$TARGET_DIR/bin:$PATH
+export PATH=$TARGET_DIR/festival/bin:$PATH
+export PATH=$TARGET_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TARGET_DIR/festvox
+export FESTDIR=$TARGET_DIR/festival
+export ESTDIR=$TARGET_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+	\end{minted}
+	
+	Perintah ini wajib dijalankan setiap kali anda menggunakan terminal/shell yang baru untuk menjalankan tools yang telah diinstal.
 	
 \end{document}
