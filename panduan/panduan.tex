@@ -473,19 +473,91 @@ make all
 	maka perintah set envars:
 	
 	\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
-export TARGET_DIR=~/.hts_sptk
+export TOOLS_DIR=~/.hts_sptk
 
-export PATH=$TARGET_DIR/bin:$PATH
-export PATH=$TARGET_DIR/festival/bin:$PATH
-export PATH=$TARGET_DIR/speech_tools/bin:$PATH
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
 
-export FESTVOXDIR=$TARGET_DIR/festvox
-export FESTDIR=$TARGET_DIR/festival
-export ESTDIR=$TARGET_DIR/speech_tools
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 	\end{minted}
 	
 	Perintah ini wajib dijalankan setiap kali anda menggunakan terminal/shell yang baru untuk menjalankan tools yang telah diinstal.
+	
+	\newpage
+	\section{Uji Demo}
+	
+	Setelah proses instalasi selesai, maka dapat dilakukan pengujian paket Demo untuk memastikan instalasi telah sukses.
+	
+	Sebelum menguji, download terlebih dahulu paket Demo untuk HTS 2.3 Speaker dependent:\\
+	\url{http://hts.sp.nitech.ac.jp/archives/2.3/HTS-demo_CMU-ARCTIC-SLT.tar.bz2}
+	
+	Berikut langkah menjalankan demo:
+	
+	\begin{enumerate}
+		\item Buka jendela terminal dimana file \textbf{HTS-demo\_CMU-ARCTIC-SLT.tar.bz2} berada.
+		
+		\item Extract paket demo ke suatu folder (sebagai contoh \textbf{demo\_hts}), kemudian pindah ke alamat tersebut.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+mkdir -p demo_hts/
+tar jxvf HTS-demo_CMU-ARCTIC-SLT.tar.bz2 -C demo_hts/
+cd demo_hts/HTS-demo_CMU-ARCTIC-SLT/
+		\end{minted}
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+		
+		\item Set nama file log dengan jam dan tanggal.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+export NMFILE="$(date +'%d%m%Y_%H%M')"
+		\end{minted}
+		
+		\item Konfigurasi alamat tools untuk skrip demo:
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=cmu_us_arctic SPEAKER=slt
+		\end{minted}
+		
+		\item Persiapan data dan skrip.
+		Alamat dataset ada di data/{raw,txt,utts}.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+make all 2>&1 | tee log_prepare_$NMFILE.txt
+		\end{minted}
+		
+		Progres dapat dicek di file log\_prepare\_jamtanggal.txt
+		
+		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
+		\begin{minted}[frame=lines,fontsize=\footnotesize]{bash}
+scriptpath=$(pwd)
+perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
+		\end{minted}
+		
+		Progres dapat dicek di file log\_synthesis\_jamtanggal.txt
+		
+		\item hasil synthesis dapat di cek di folder \textbf{gen/}
+		
+	\end{enumerate}
+	
+	
 	
 \end{document}
