@@ -66,7 +66,12 @@
 	\thispagestyle{empty}
 	\pagestyle{empty}
 	
-	\vspace*{550px}
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=250pt]{yerba.png}
+	\end{figure}
+	
+	\vspace*{175px}
 	\noindent This book written using: \\
 	OS : \ShowOsVersion \\
 	TeX : \ShowTexVersion \\
@@ -498,15 +503,15 @@ export PATH=$FESTDIR/examples:$PATH
 	\end{minted}
 	
 	Perintah ini wajib dijalankan setiap kali anda menggunakan terminal/shell yang baru untuk menjalankan tools yang telah diinstal.
-	
-	\newpage
-	\section{Uji Demo}
+
+	\subsection{Uji Demo}
 	
 	Setelah proses instalasi selesai, maka dapat dilakukan pengujian paket Demo untuk memastikan instalasi telah sukses.
 	
 	Sebelum menguji, download terlebih dahulu paket Demo untuk HTS 2.3 Speaker dependent:\\
 	\url{http://hts.sp.nitech.ac.jp/archives/2.3/HTS-demo_CMU-ARCTIC-SLT.tar.bz2}
 	
+	\subsubsection{Run Demo}
 	Berikut langkah menjalankan demo:
 	
 	\begin{enumerate}
@@ -534,6 +539,7 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
 		
+		\newpage
 		\item Beri hak \textit{executable} untuk skrip \textbf{configure}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
@@ -552,7 +558,7 @@ export NMFILE="$(date +'%d%m%Y_%H%M')"
 --with-hts-search-path=$TOOLS_DIR/bin \
 --with-hts-engine-search-path=$TOOLS_DIR/bin
 		\end{minted}
-		
+
 		\item Persiapan data dan skrip.
 		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -561,8 +567,7 @@ make all 2>&1 | tee log_prepare_$NMFILE.txt
 		
 		Tunggu proses selesai dan muncul bash-prompt.
 		Selain tampil di terminal, proses akan tercatat di file log\_prepare\_jamtanggal.txt
-		
-		\newpage
+
 		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 scriptpath=$(pwd)
@@ -572,11 +577,11 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 		Tunggu proses selesai dan muncul bash-prompt.
 		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
 		
-		\item hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/}
+		\item hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
 		
 	\end{enumerate}
 
-	\subsection{Tracking Proses Synthesis}.
+	\subsubsection{Tracking Proses Synthesis}.
 	
 	Selama proses synthesis berjalan, anda dapat menjejak (\textit{tracking}) sudah sampai tahap mana proses berlangsung.
 	Tracking dilakukan dengan menilik tahapan "Start" yang tercatat di file log\_synthesis\_jamtanggal.txt.
@@ -585,25 +590,14 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 	Berikut langkah tracking:
 	
 	\begin{enumerate}
-		\item Buka jendela terminal/shell di alamat file log\_synthesis\_10062019\_1444.txt berada.
+		\item Buka jendela terminal/shell di alamat file \textbf{log\_synthesis\_10062019\_1444.txt} berada.
 		
 		\item Perintah untuk print menampilkan tahapan synthesis yang sudah selesai dan yang terakhir sedang berjalan:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cat log_synthesis_10062019_1444.txt | grep "Start"
 		\end{minted}
 		
-		Semisal hasilnya:
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-Start preparing environments at Sen Jun 10 19:18:26 WIB 2019
-Start computing variance floors at Sen Jun 10 19:18:26 WIB 2019
-Start initialization & reestimation at Sen Jun 10 19:18:28 WIB 2019
-Start making a monophone mmf at Sen Jun 10 19:23:10 WIB 2019
-Start embedded reestimation (monophone) at Sen Jun 10 19:23:10 WIB 2019
-Start copying monophone mmf to fullcontext one at Sen Jun 10 19:36:47 WIB 2019
-Start embedded reestimation (fullcontext) at Sen Jun 10 19:36:58 WIB 2019
-Start tree-based context clustering at Sen Jun 10 19:39:55 WIB 2019
-		\end{minted}
-		
+		\newpage
 		\item Sebagai pembanding, dapat dibandingkan dengan konten konfigurasi di file \textbf{scripts/Config.pm}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 tail -n35 scripts/Config.pm
@@ -613,9 +607,8 @@ tail -n35 scripts/Config.pm
 
 	Jika proses synthesis berhenti di tengah jalan, proses dapat di ulang tanpa harus dari awal,
 	dengan cara memanipulasi nilai 0 atau 1 pada segmen \textbf{SWITCH} pada file \textbf{scripts/Config.pm}.
-	
-	\newpage
-	\subsection{DATASET dan SPEAKER}
+
+	\subsubsection{DATASET dan SPEAKER}
 	
 	Variabel DATASET dan SPEAKER digunakan jika ingin memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
 	Kedua variabel ini akan menentukan nama dataset dan pembicara mana yang akan diproses.
@@ -799,7 +792,241 @@ DATASET=cmu_us_arctic SPEAKER=awb
 DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
 		
+	\end{enumerate}
+
+	\section{Modifikasi Grapheme}
+	
+	Panduan ini akan membahas modifikasi Grapheme untuk menyesuaikan dengan bahasa Indonesia.
+	
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru.
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+		
+		\item ganti deskripsi karakter di \textbf{\$FESTVOXDIR/src/grapheme/sampa.table}
+		\begin{itemize}		
+			\item "J" ke "j" pada baris 55.
+			\item "j" ke "y" pada baris 82.
+		\end{itemize}
+	
+		Perintahnya:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sed -i "55s#( J#( j#" $FESTVOXDIR/src/grapheme/sampa.table
+sed -i "82s#( j#( y#" $FESTVOXDIR/src/grapheme/sampa.table
+		\end{minted}
+		
+		\item ganti asosiasi karakter di \textbf{\$FESTVOXDIR/src/grapheme/unicode\_sampa\_mapping.scm}
+		\begin{itemize}
+			\item A ke a di baris 26
+			\item ch ke c di baris 28
+			\item dZ ke j di baris 35
+			\item j ke y di baris 50
+		\end{itemize}
+		
+		Perintahnya:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sed -i "26s#(( A )))#(( a )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+sed -i "28s#(( ch )))#(( c )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+
+sed -i "35s#(( dZ )))#(( j )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+		\end{minted}
+		
+	\end{enumerate}
+	
+	\newpage
+	\section{Data Preparation}
+	
+	Panduan berikut untuk menyiapkan data rekaman untuk proses synthesis.
+	
+	\subsection{Minimum Data}
+	
+	Minimum data yang dibutuhkan secara standar adalah:
+	\begin{itemize}
+		\item semua file rekaman wav untuk synthesis. 
+		Contoh disini memiliki nama vibid\_fena\_xxxx.wav
+		
+		\item satu file text berisi transkripsi rekaman wav sebelumnya.
+		Contoh disini memiliki nama vibid\_fena.txt
+	\end{itemize}
+
+	\textbf{Perhatikan}:
+	\begin{itemize}
+		\item Pastikan urutan text sesuai urutan angka file wav dan sesuai.
+		\item Pastikan tidak ada wav tanpa text bersesuaian atau sebaliknya.
+	\end{itemize}
+
+	\subsection{Build Texts}
+	
+	Berikut langkah untuk membuat teks transkripsi dari satu file transkripsi:
+	Contoh disini memiliki nama \textbf{vibid\_fena.txt}.
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru di alamat vibid\_fena.txt berada.
+		
+		\item Buat folder untuk hasil teks.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p txt/
+		\end{minted}
+		
+		\item Jalankan perintah konversi.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+filenm=vibid_fena.txt
+fname=$(echo $filenm | cut -f 1 -d '.')
+x=0
+IFS=$'\n'
+for i in `cat $filenm`;do
+	x=$(( x + 1 ))
+	num=$(printf %04d $x)
+	echo $i > txt/${fname}_${num}.txt
+done
+		\end{minted}
+		
+		\item Hasil teks akan ada di folder \textbf{txt/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+ls -1 txt/
+		\end{minted}
+		
+	\end{enumerate}
+	
+	\newpage
+	\subsection{Konversi Trankripsi}
+	
+	Berikut langkah konversi file teks transkripsi ke format prompt yang sesuai dengan Festival.
+	
+	Contoh file disini adalah vibid\_fena.txt yang memiliki konten:
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+saya suka baju yang berwarna merah tua
+boneka beruang di toko itu lucu sekali
+sepatuku kotor belum aku cuci dari kemarin
+jalan itu ramai sekali setiap pagi hari
+....
+	\end{minted}
+	
+	\begin{enumerate}
+		\item Download skrip \textbf{text2prompt.py} yang sudah dimodifikasi di alamat: \\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/text2prompt.py}
+		
+		\item Salin text2prompt.py ke folder dimana vibid\_fena.txt berada.
+		
+		\item Buka jendela terminal/shell baru di alamat text2prompt.py dan vibid\_fena.txt berada.
+		
+		\item jalankan skrip python untuk konversi
+		pola perintah:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+python2 text2prompt.py [nama_file_teks] txt.done.data [DATASET_SPEAKER] [jumlah_digit_angka]
+		\end{minted}
+		
+		sebagai contoh:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+python2 text2prompt.py vibid_fena.txt txt.done.data vibid_fena 4
+		\end{minted}
 		
 	\end{enumerate}
 
+	Hasil teks prompt adalah file teks \textbf{txt.done.data} dengan seperti:
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+( vibid_fena_0001 "saya suka baju yang berwarna merah tua" )
+( vibid_fena_0002 "boneka beruang di toko itu lucu sekali" )
+( vibid_fena_0003 "sepatuku kotor belum aku cuci dari kemarin" )
+( vibid_fena_0004 "jalan itu ramai sekali setiap pagi hari" )
+....
+	\end{minted}
+	
+	\newpage
+	\subsection{Build Utterances}
+	
+	Berikut langkah mengkonversi file prompt ke teks utterances (utt).
+	
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru.
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+		
+		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_utts/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p build_utts/
+cd build_utts/
+		\end{minted}
+		
+		\item Bentuk struktur folder dasar
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+$FESTVOXDIR/src/clustergen/setup_cg cmu ind vibid_fena
+		\end{minted}
+		
+		\item Salin file \textbf{txt.done.data} yang sebelumnya dibuat ke folder \textbf{etc/}.
+		
+		\item Salin semua file wav rekaman ke folder \textbf{wav/}
+		
+		\item Pastikan file *.wav dan isi txt.done.data sesuai baik urutan maupun korespondensi.
+		
+		\item Beberapa langkah opsional (jika dibutuhkan):
+		
+		\begin{itemize}
+			\item Normalisasi daya:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/get_wavs recording/*.wav
+			\end{minted}
+			
+			\item Mengurangi durasi sunyi di awal dan akhir:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/prune_silence wav/*.wav
+			\end{minted}
+			
+			\item Mengurangi durasi sunyi di tengah kalimat:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/prune_middle_silence wav/*.wav
+			\end{minted}
+			
+		\end{itemize}
+
+		\newpage
+		\item Set pilihan bahasa ke \textbf{Grapheme}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+$FESTVOXDIR/src/grapheme/make_cg_grapheme
+		\end{minted}
+		
+		\item Build utterances
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/do_build parallel build_prompts
+./bin/do_build label
+./bin/do_build parallel build_utts
+		\end{minted}
+		
+		\item Hasil utterance akan berada di folder \textbf{festival/utts/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+ls -1 festival/utts/
+		\end{minted}
+		
+	\end{enumerate}
+	
+	\newpage
+	\subsection{Build Full Label}
+	
+	
 \end{document}
