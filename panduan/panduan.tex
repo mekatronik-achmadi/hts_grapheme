@@ -534,6 +534,11 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
 		
+		\item Beri hak \textit{executable} untuk skrip \textbf{configure}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
+		\end{minted}
+		
 		\item Set nama file log dengan jam dan tanggal.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export NMFILE="$(date +'%d%m%Y_%H%M')"
@@ -549,12 +554,13 @@ export NMFILE="$(date +'%d%m%Y_%H%M')"
 		\end{minted}
 		
 		\item Persiapan data dan skrip.
-		Alamat dataset ada di data/{raw,txt,utts}.
+		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
 		
-		Selain tampil di terminal, progres akan tercatat di file log\_prepare\_jamtanggal.txt
+		Tunggu proses selesai dan muncul bash-prompt.
+		Selain tampil di terminal, proses akan tercatat di file log\_prepare\_jamtanggal.txt
 		
 		\newpage
 		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
@@ -563,12 +569,52 @@ scriptpath=$(pwd)
 perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
 		\end{minted}
 		
-		Selain tampil di terminal, progres akan tercatat di file log\_synthesis\_jamtanggal.txt
+		Tunggu proses selesai dan muncul bash-prompt.
+		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
 		
 		\item hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/}
 		
 	\end{enumerate}
+
+	\subsection{Tracking Proses Synthesis}.
 	
+	Selama proses synthesis berjalan, anda dapat menjejak (\textit{tracking}) sudah sampai tahap mana proses berlangsung.
+	Tracking dilakukan dengan menilik tahapan "Start" yang tercatat di file log\_synthesis\_jamtanggal.txt.
+	
+	Sebagai contoh file log terakhir atau sedang berlangsung memiliki nama \textbf{log\_synthesis\_10062019\_1444.txt}.
+	Berikut langkah tracking:
+	
+	\begin{enumerate}
+		\item Buka jendela terminal/shell di alamat file log\_synthesis\_10062019\_1444.txt berada.
+		
+		\item Perintah untuk print menampilkan tahapan synthesis yang sudah selesai dan yang terakhir sedang berjalan:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+cat log_synthesis_10062019_1444.txt | grep "Start"
+		\end{minted}
+		
+		Semisal hasilnya:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+Start preparing environments at Sen Jun 10 19:18:26 WIB 2019
+Start computing variance floors at Sen Jun 10 19:18:26 WIB 2019
+Start initialization & reestimation at Sen Jun 10 19:18:28 WIB 2019
+Start making a monophone mmf at Sen Jun 10 19:23:10 WIB 2019
+Start embedded reestimation (monophone) at Sen Jun 10 19:23:10 WIB 2019
+Start copying monophone mmf to fullcontext one at Sen Jun 10 19:36:47 WIB 2019
+Start embedded reestimation (fullcontext) at Sen Jun 10 19:36:58 WIB 2019
+Start tree-based context clustering at Sen Jun 10 19:39:55 WIB 2019
+		\end{minted}
+		
+		\item Sebagai pembanding, dapat dibandingkan dengan konten konfigurasi di file \textbf{scripts/Config.pm}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+tail -n35 scripts/Config.pm
+		\end{minted}
+		
+	\end{enumerate}
+
+	Jika proses synthesis berhenti di tengah jalan, proses dapat di ulang tanpa harus dari awal,
+	dengan cara memanipulasi nilai 0 atau 1 pada segmen \textbf{SWITCH} pada file \textbf{scripts/Config.pm}.
+	
+	\newpage
 	\subsection{DATASET dan SPEAKER}
 	
 	Variabel DATASET dan SPEAKER digunakan jika ingin memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
