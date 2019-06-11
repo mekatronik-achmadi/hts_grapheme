@@ -62,6 +62,7 @@
 \tikzstyle{optional}=[dashed,fill=gray!50]
 
 \begin{document}
+	
 	\maketitle
 	\thispagestyle{empty}
 	\pagestyle{empty}
@@ -876,6 +877,131 @@ ls -1 festival/utts/
 	\newpage
 	\subsection{Build Full Label}
 	
+	Berikut adalah langkah membuat full context labelling berdasarkan utterances.
+	Sebelum melanjutkan, download terlebih semua skrip untuk konversi di alamat:\\
+	\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/scripts/utt2lab}
+	
+	Berikut langkahnya:
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru.
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+		
+		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_labs/}.
+		Di bawah folder tersebut, buat folder \textbf{utts/} dan \textbf{labs/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p build_labs/{labs,utts}/
+cd build_labs/
+		\end{minted}
+		
+		\item Salin semua file utterances (*.utt) ke folder \textbf{utts/}.
+		
+		\item Salin folder skrip \textbf{utt2lab/} ke folder ini.
+		
+		\item Jalankan skrip konversi.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./utt2lab/generate_labels.sh ./labs/ ./utts/ $FESTDIR/examples/dumpfeats ./utt2lab/
+		\end{minted}
+		
+		\item Hasil full context label akan ada di folder \textbf{labs/full/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+ls -1 labs/full/
+		\end{minted}
+
+	\end{enumerate}
+
+	\newpage
+	\subsection{Build RAW}
+	
+	Berikut adalah langkah konversi file wav ke raw.
+	
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru.
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+		
+		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_raw/}.
+		Di bawah folder tersebut, buat folder \textbf{wav/} dan \textbf{raw/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p build_raw/{raw,wav}/
+cd build_raw/
+		\end{minted}
+		
+		\item Salin semua file wave rekaman (*.wav) ke folder \textbf{wav/}.
+		
+		\item Beberapa langkah opsional (jika dibutuhkan):
+		
+		\begin{itemize}
+			\item Normalisasi daya:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/get_wavs recording/*.wav
+			\end{minted}
+			
+			\item Mengurangi durasi sunyi di awal dan akhir:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/prune_silence wav/*.wav
+			\end{minted}
+			
+			\item Mengurangi durasi sunyi di tengah kalimat:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./bin/prune_middle_silence wav/*.wav
+			\end{minted}
+			
+		\end{itemize}
+	
+		\item Konvert ke format 16k wav (jika diperlukan).
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+cd wav/
+for i in `ls *.wav`;do sox $i -r 16000 $i;done
+cd ..
+		\end{minted}
+		
+		\newpage
+		\item Konvert wav ke raw
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+cd wav/
+for i in `ls *.wav`;do
+	fname=$(echo $i | cut -f 1 -d '.')
+	ch_wave -c 0 -F 32000 -otype raw $fname.wav \
+	 | x2x +sf | interpolate -p 2 -d | ds -s 43 \
+	 | x2x +fs > ../raw/$fname.raw
+done
+cd ..
+		\end{minted}
+		
+		\item Hasil raw akan di folder \textbf{raw/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+ls -1 raw/
+		\end{minted}
+		
+	\end{enumerate}
+		
 	\newpage
 	\section{Trivia}
 	
@@ -887,12 +1013,12 @@ ls -1 festival/utts/
 	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
 	
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-	./configure \
-	--with-fest-search-path=$TOOLS_DIR/festival/examples \
-	--with-sptk-search-path=$TOOLS_DIR/bin \
-	--with-hts-search-path=$TOOLS_DIR/bin \
-	--with-hts-engine-search-path=$TOOLS_DIR/bin \
-	DATASET=XXXX SPEAKER=YYYY
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=XXXX SPEAKER=YYYY
 	\end{minted}
 	
 	Dan data yang akan diproses harus memiliki nama dan struktur file/folder utama seperti ini:
@@ -970,11 +1096,11 @@ ls -1 festival/utts/
 		Maka perintah konfigurasi dapat seperti berikut:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-		./configure \
-		--with-fest-search-path=$TOOLS_DIR/festival/examples \
-		--with-sptk-search-path=$TOOLS_DIR/bin \
-		--with-hts-search-path=$TOOLS_DIR/bin \
-		--with-hts-engine-search-path=$TOOLS_DIR/bin
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin
 		\end{minted}
 		
 		\textbf{Perhatikan}: Setelah baris terakhir tidak ada tanda '\textbackslash'
@@ -982,12 +1108,12 @@ ls -1 festival/utts/
 		Atau boleh juga (opsional) dengan menentukan DATASET dan SPEAKER nya:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-		./configure \
-		--with-fest-search-path=$TOOLS_DIR/festival/examples \
-		--with-sptk-search-path=$TOOLS_DIR/bin \
-		--with-hts-search-path=$TOOLS_DIR/bin \
-		--with-hts-engine-search-path=$TOOLS_DIR/bin \
-		DATASET=cmu_us_arctic SPEAKER=slt
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
 		
 		\newpage
@@ -1045,25 +1171,45 @@ ls -1 festival/utts/
 		Semisal apakah akan menggunakan pembicara AWB:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-		./configure \
-		--with-fest-search-path=$TOOLS_DIR/festival/examples \
-		--with-sptk-search-path=$TOOLS_DIR/bin \
-		--with-hts-search-path=$TOOLS_DIR/bin \
-		--with-hts-engine-search-path=$TOOLS_DIR/bin \
-		DATASET=cmu_us_arctic SPEAKER=awb
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=cmu_us_arctic SPEAKER=awb
 		\end{minted}
 		
 		Atau pembicara SLT (harus salah satu):
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-		./configure \
-		--with-fest-search-path=$TOOLS_DIR/festival/examples \
-		--with-sptk-search-path=$TOOLS_DIR/bin \
-		--with-hts-search-path=$TOOLS_DIR/bin \
-		--with-hts-engine-search-path=$TOOLS_DIR/bin \
-		DATASET=cmu_us_arctic SPEAKER=slt
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
 		
 	\end{enumerate}
 	
+	\newpage
+	\subsection{Tools EnVars}
+	
+	Pengulangan untuk mempermudah mengingat set EnVars ini akan sering dipanggil.
+	
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+	\end{minted}
+	
+	\subsection{Unduh Github}
 	
 \end{document}
