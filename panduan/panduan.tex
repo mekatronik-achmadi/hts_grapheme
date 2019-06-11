@@ -1012,9 +1012,138 @@ ls -1 raw/
 	\section{Synthesis Wav}
 	
 	Panduan bagian ini akan menjelaskan proses synthesis wav.
-	Yang harus disi
+	Yang harus disiapkan adalah:
+	\begin{itemize}
+		\item instalasi tools.
+		
+		\item Struktur file/folder untuk synthesis HTS.
+		
+		\item file question untuk \textit{decision-tree}.
+		
+		\item file raw rekaman (*.raw).
+		
+		\item file teks transkripsi (*.txt).
+		
+		\item file utterances (*.utt).
+		
+		\item file full context label yang akan di synthesis (*.lab).
+	\end{itemize}
 	
+	\subsection{Struktur file/folder}
 	
+	Berikut langkah menyiapkan struktur file/folder untuk systhesis.
+	
+	\begin{enumerate}
+		\item Download paket Zip template.
+		Paket dapat didownload di alamat:\\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/template}
+		
+		\item Buka jendela terminal/shell baru di alamat file \textbf{template.zip} berada.
+		
+		
+		\item Ekstrak konten \textbf{template.zip} dan ganti nama folder semisal ke \textbf{run\_synth/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+unzip template.zip -d ./
+mv template/ run_synth/
+cd run_synth/
+		\end{minted}
+		
+		\item Download file question.\\
+		English: \url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/questions/english/questions_qst001.hed}\\
+		Bahasa: \url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/questions/bahasa/questions_qst001.hed}
+		
+		\item Salin file question ke folder \textbf{data/questions/}.
+		
+		\item Buat folder untuk data yang akan di synthesis.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p data/{raw,txt,utts}
+		\end{minted}
+		
+		\item Salin semua file raw rekaman (*.raw) ke folder \textbf{data/raw/}.
+		
+		\item Salin semua file teks transkripsi (*.txt) ke folder \textbf{data/txt/}.
+		
+		\item Salin semua file utterance (*.utt) ke folder \textbf{data/utts/}.
+		
+		\item Pastikan file raw, teks transkripsi, dan utterance sudah bersesuaian.
+		
+		\item Buat folder untuk full-context label yang akan di synthesis.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p data/labels/gen/
+		\end{minted}
+		
+		\item Salin semua file full-context label (*.lab) yang akan di synthesis.
+		
+	\end{enumerate}
+
+	\newpage
+	\subsection{Running synthesis}
+	
+	Berikut langkah untuk menjalankan synthesis di folder sebelumya dibuat (\textbf{run\_synth/}).
+	
+	\begin{enumerate}
+		\item Buka jendela terminal di alamat folder synthesys (\textbf{run\_synth/}).
+		
+		\item Panggil Envars tools:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export TOOLS_DIR=~/.hts_sptk
+
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+
+export PATH=$FESTDIR/examples:$PATH
+		\end{minted}
+
+		\item Beri hak \textit{executable} untuk skrip \textbf{configure}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
+		\end{minted}
+		
+		\item Set nama file log dengan jam dan tanggal.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export NMFILE="$(date +'%d%m%Y_%H%M')"
+		\end{minted}
+		
+		\item Dapatkan nama file yang di training untuk variabel DATASET dan SPEAKER.
+		Semisal contoh nama file adalah \textbf{vibid\_fena}.
+		Maka nilai variabel \textbf{DATASET=vibid} dan \textbf{SPEAKER=fena}.
+		
+		\item Konfigurasi alamat tools untuk skrip demo:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+./configure \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=vibid SPEAKER=fena
+		\end{minted}
+		
+		\item Persiapan data dan skrip.
+		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+make all 2>&1 | tee log_prepare_$NMFILE.txt
+		\end{minted}
+		
+		Tunggu proses selesai dan muncul bash-prompt.
+		Selain tampil di terminal, proses akan tercatat di file log\_prepare\_jamtanggal.txt
+		
+		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+scriptpath=$(pwd)
+perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
+		\end{minted}
+		
+		Tunggu proses selesai dan muncul bash-prompt.
+		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
+		
+		\item Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
+		
+	\end{enumerate}
 		
 	\newpage
 	\section{Trivia}
@@ -1303,6 +1432,8 @@ tree hts_grapheme/
 		\item File/folder akan terdownload dalam arsip Zip.
 	\end{enumerate}
 
-	\subsection{Scripts}
+	\subsection{Troubleshoot}
+	
+	Jika ditemukan masalah, solusinya berdoalah semoga masalah tersebut selesai dengan sendirinya.
 	
 \end{document}
