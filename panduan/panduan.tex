@@ -552,12 +552,13 @@ export NMFILE="$(date +'%d%m%Y_%H%M')"
 		\end{minted}
 		
 		\item Konfigurasi alamat tools untuk skrip demo:
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
 --with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
+DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
 
 		\item Persiapan data dan skrip.
@@ -1012,7 +1013,7 @@ ls -1 raw/
 	
 	\subsection{DATASET dan SPEAKER}
 	
-	Variabel DATASET dan SPEAKER digunakan jika ingin memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
+	Variabel DATASET dan SPEAKER digunakan untuk memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
 	Kedua variabel ini akan menentukan nama dataset dan pembicara mana yang akan diproses.
 	
 	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
@@ -1039,23 +1040,33 @@ DATASET=XXXX SPEAKER=YYYY
 	child [missing] {}
 	child { node {raw}
 		child { node {XXXX\_YYYY\_0001.raw}}
+		child { node {XXXX\_YYYY\_0002.raw}}
 		child { node {....}}
+		child { node {XXXX\_YYYY\_0999.raw}}
 		child { node {XXXX\_YYYY\_1000.raw}}
 	}
 	child [missing] {}
 	child [missing] {}
 	child [missing] {}
+	child [missing] {}
+	child [missing] {}
 	child { node {txt}
 		child { node {XXXX\_YYYY\_0001.txt}}
+		child { node {XXXX\_YYYY\_0002.txt}}
 		child { node {....}}
+		child { node {XXXX\_YYYY\_0999.txt}}
 		child { node {XXXX\_YYYY\_1000.txt}}
 	}
 	child [missing] {}
 	child [missing] {}
 	child [missing] {}
+	child [missing] {}
+	child [missing] {}
 	child { node {utts}
 		child { node {XXXX\_YYYY\_0001.utt}}
+		child { node {XXXX\_YYYY\_0002.txt}}
 		child { node {....}}
+		child { node {XXXX\_YYYY\_0999.txt}}
 		child { node {XXXX\_YYYY\_1000.utt}}
 	};
 	\end{tikzpicture}
@@ -1077,17 +1088,25 @@ DATASET=XXXX SPEAKER=YYYY
 		child [missing] {}
 		child { node {raw}
 			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
+			child { node {cmu\_us\_arctic\_slt\_0002.raw}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_0999.raw}}
 			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
 		}
 		child [missing] {}
 		child [missing] {}
 		child [missing] {}
+		child [missing] {}
+		child [missing] {}
 		child { node {txt}
 			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
+			child { node {cmu\_us\_arctic\_slt\_0002.txt}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_0999.txt}}
 			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
 		}
+		child [missing] {}
+		child [missing] {}
 		child [missing] {}
 		child [missing] {}
 		child [missing] {}
@@ -1098,19 +1117,7 @@ DATASET=XXXX SPEAKER=YYYY
 		};
 		\end{tikzpicture}
 		
-		Maka perintah konfigurasi dapat seperti berikut:
-		
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin
-		\end{minted}
-		
-		\textbf{Perhatikan}: Setelah baris terakhir tidak ada tanda '\textbackslash'
-		
-		Atau boleh juga (opsional) dengan menentukan DATASET dan SPEAKER nya:
+		Maka perintah konfigurasi dengan menentukan DATASET dan SPEAKER nya:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ./configure \
@@ -1287,5 +1294,7 @@ tree hts_grapheme/
 		
 		\item File/folder akan terdownload dalam arsip Zip.
 	\end{enumerate}
+
+	\subsection{Scripts}
 	
 \end{document}
