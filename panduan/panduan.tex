@@ -580,7 +580,8 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 		\item hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
 		
 	\end{enumerate}
-
+	
+	\newpage
 	\subsubsection{Tracking Proses Synthesis}.
 	
 	Selama proses synthesis berjalan, anda dapat menjejak (\textit{tracking}) sudah sampai tahap mana proses berlangsung.
@@ -596,8 +597,7 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cat log_synthesis_10062019_1444.txt | grep "Start"
 		\end{minted}
-		
-		\newpage
+
 		\item Sebagai pembanding, dapat dibandingkan dengan konten konfigurasi di file \textbf{scripts/Config.pm}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 tail -n35 scripts/Config.pm
@@ -607,193 +607,43 @@ tail -n35 scripts/Config.pm
 
 	Jika proses synthesis berhenti di tengah jalan, proses dapat di ulang tanpa harus dari awal,
 	dengan cara memanipulasi nilai 0 atau 1 pada segmen \textbf{SWITCH} pada file \textbf{scripts/Config.pm}.
-
-	\subsubsection{DATASET dan SPEAKER}
-	
-	Variabel DATASET dan SPEAKER digunakan jika ingin memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
-	Kedua variabel ini akan menentukan nama dataset dan pembicara mana yang akan diproses.
-	
-	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
 	
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin \
-DATASET=XXXX SPEAKER=YYYY
+# Switch ================================
+$MKEMV = 1; # preparing environments
+$HCMPV = 1; # computing a global variance
+$IN_RE = 1; # initialization & reestimation
+$MMMMF = 1; # making a monophone mmf
+$ERST0 = 1; # embedded reestimation (monophone)
+$MN2FL = 1; # copying monophone mmf to fullcontext one
+$ERST1 = 1; # embedded reestimation (fullcontext)
+$CXCL1 = 1; # tree-based context clustering
+$ERST2 = 1; # embedded reestimation (clustered)
+$UNTIE = 1; # untying the parameter sharing structure
+$ERST3 = 1; # embedded reestimation (untied)
+$CXCL2 = 1; # tree-based context clustering
+$ERST4 = 1; # embedded reestimation (re-clustered)
+$FALGN = 1; # forced alignment for no-silent GV
+$MCDGV = 1; # making global variance
+$MKUNG = 1; # making unseen models (GV)
+$TMSPF = 1; # training modulation spectrum-based postfilter
+$MKUN1 = 1; # making unseen models (1mix)
+$PGEN1 = 1; # generating speech parameter sequences (1mix)
+$WGEN1 = 1; # synthesizing waveforms (1mix)
+$CONVM = 1; # converting mmfs to the hts_engine file format
+$ENGIN = 1; # synthesizing waveforms using hts_engine
+$SEMIT = 1; # semi-tied covariance matrices
+$MKUNS = 1; # making unseen models (stc)
+$PGENS = 1; # generating speech parameter sequences (stc)
+$WGENS = 1; # synthesizing waveforms (stc)
+$UPMIX = 1; # increasing the number of mixture components (1mix -> 2mix)
+$ERST5 = 1; # embedded reestimation (2mix)
+$MKUN2 = 1; # making unseen models (2mix)
+$PGEN2 = 1; # generating speech parameter sequences (2mix)
+$WGEN2 = 1; # synthesizing waveforms (2mix)
 	\end{minted}
-	
-	Dan data yang akan diproses harus memiliki nama dan struktur file/folder utama seperti ini:
-	
-	\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-	\node {data}
-	child { node {labels}
-		child { node {gen}
-			child { node {XXXX\_YYYY\_0000.lab}}
-		}
-	}
-	child [missing] {}
-	child [missing] {}
-	child { node {raw}
-		child { node {XXXX\_YYYY\_0001.raw}}
-		child { node {....}}
-		child { node {XXXX\_YYYY\_1000.raw}}
-	}
-	child [missing] {}
-	child [missing] {}
-	child [missing] {}
-	child { node {txt}
-	child { node {XXXX\_YYYY\_0001.txt}}
-	child { node {....}}
-	child { node {XXXX\_YYYY\_1000.txt}}
-	}
-	child [missing] {}
-	child [missing] {}
-	child [missing] {}
-	child { node {utts}
-	child { node {XXXX\_YYYY\_0001.utt}}
-	child { node {....}}
-	child { node {XXXX\_YYYY\_1000.utt}}
-	};
-	\end{tikzpicture}
 
 	\newpage
-	Untuk mempermudah, berikut dijelaskan contoh:
-	
-	\begin{enumerate}
-		\item Hanya ada satu data set, semisal:
-		
-		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-		\node {data}
-		child { node {labels}
-			child { node {gen}
-				child { node {cmu\_us\_arctic\_slt\_0000.lab}}
-			}
-		}
-		child [missing] {}
-		child [missing] {}
-		child { node {raw}
-			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {txt}
-			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {utts}
-			child { node {cmu\_us\_arctic\_slt\_0001.utt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
-		};
-		\end{tikzpicture}
-		
-		Maka perintah konfigurasi dapat seperti berikut:
-		
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin
-		\end{minted}
-		
-		\textbf{Perhatikan}: Setelah baris terakhir tidak ada tanda '\textbackslash'
-		
-		Atau boleh juga (opsional) dengan menentukan DATASET dan SPEAKER nya:
-		
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin \
-DATASET=cmu_us_arctic SPEAKER=slt
-		\end{minted}
-		
-		\newpage
-		\item Dua atau lebih dataset, semisal:
-		
-		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-		\node {data}
-		child { node {labels}
-			child { node {gen}
-				child { node {cmu\_us\_arctic\_0000.lab}}
-			}
-		}
-		child [missing] {}
-		child [missing] {}
-		child { node {raw}
-			child { node {cmu\_us\_arctic\_awb\_0001.raw}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_awb\_1000.raw}}
-			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {txt}
-			child { node {cmu\_us\_arctic\_awb\_0001.txt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_awb\_1000.txt}}
-			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {utts}
-			child { node {cmu\_us\_arctic\_awb\_0001.utt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_awb\_1000.utt}}
-			child { node {cmu\_us\_arctic\_slt\_0001.utt}}
-			child { node {....}}
-			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
-		};
-		\end{tikzpicture}
-		
-		Maka wajib ditentukan salah satu data mana yang digunakan agar tidak rancu.
-		
-		Semisal apakah akan menggunakan pembicara AWB:
-		
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin \
-DATASET=cmu_us_arctic SPEAKER=awb
-		\end{minted}
-		
-		Atau pembicara SLT (harus salah satu):
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./configure \
---with-fest-search-path=$TOOLS_DIR/festival/examples \
---with-sptk-search-path=$TOOLS_DIR/bin \
---with-hts-search-path=$TOOLS_DIR/bin \
---with-hts-engine-search-path=$TOOLS_DIR/bin \
-DATASET=cmu_us_arctic SPEAKER=slt
-		\end{minted}
-		
-	\end{enumerate}
-
 	\section{Modifikasi Grapheme}
 	
 	Panduan ini akan membahas modifikasi Grapheme untuk menyesuaikan dengan bahasa Indonesia.
@@ -869,7 +719,7 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 		\item Pastikan tidak ada wav tanpa text bersesuaian atau sebaliknya.
 	\end{itemize}
 
-	\subsection{Build Texts}
+	\subsection{Build Text}
 	
 	Berikut langkah untuk membuat teks transkripsi dari satu file transkripsi:
 	Contoh disini memiliki nama \textbf{vibid\_fena.txt}.
@@ -944,8 +794,7 @@ python2 text2prompt.py vibid_fena.txt txt.done.data vibid_fena 4
 ( vibid_fena_0004 "jalan itu ramai sekali setiap pagi hari" )
 ....
 	\end{minted}
-	
-	\newpage
+
 	\subsection{Build Utterances}
 	
 	Berikut langkah mengkonversi file prompt ke teks utterances (utt).
@@ -1005,7 +854,6 @@ $FESTVOXDIR/src/clustergen/setup_cg cmu ind vibid_fena
 			
 		\end{itemize}
 
-		\newpage
 		\item Set pilihan bahasa ke \textbf{Grapheme}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 $FESTVOXDIR/src/grapheme/make_cg_grapheme
@@ -1027,6 +875,195 @@ ls -1 festival/utts/
 	
 	\newpage
 	\subsection{Build Full Label}
+	
+	\newpage
+	\section{Trivia}
+	
+	\subsection{DATASET dan SPEAKER}
+	
+	Variabel DATASET dan SPEAKER digunakan jika ingin memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
+	Kedua variabel ini akan menentukan nama dataset dan pembicara mana yang akan diproses.
+	
+	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
+	
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+	./configure \
+	--with-fest-search-path=$TOOLS_DIR/festival/examples \
+	--with-sptk-search-path=$TOOLS_DIR/bin \
+	--with-hts-search-path=$TOOLS_DIR/bin \
+	--with-hts-engine-search-path=$TOOLS_DIR/bin \
+	DATASET=XXXX SPEAKER=YYYY
+	\end{minted}
+	
+	Dan data yang akan diproses harus memiliki nama dan struktur file/folder utama seperti ini:
+	
+	\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	\node {data}
+	child { node {labels}
+		child { node {gen}
+			child { node {XXXX\_YYYY\_0000.lab}}
+		}
+	}
+	child [missing] {}
+	child [missing] {}
+	child { node {raw}
+		child { node {XXXX\_YYYY\_0001.raw}}
+		child { node {....}}
+		child { node {XXXX\_YYYY\_1000.raw}}
+	}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child { node {txt}
+		child { node {XXXX\_YYYY\_0001.txt}}
+		child { node {....}}
+		child { node {XXXX\_YYYY\_1000.txt}}
+	}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child { node {utts}
+		child { node {XXXX\_YYYY\_0001.utt}}
+		child { node {....}}
+		child { node {XXXX\_YYYY\_1000.utt}}
+	};
+	\end{tikzpicture}
+	
+	\newpage
+	Untuk mempermudah, berikut dijelaskan contoh:
+	
+	\begin{enumerate}
+		\item Hanya ada satu data set, semisal:
+		
+		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+		\node {data}
+		child { node {labels}
+			child { node {gen}
+				child { node {cmu\_us\_arctic\_slt\_0000.lab}}
+			}
+		}
+		child [missing] {}
+		child [missing] {}
+		child { node {raw}
+			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {txt}
+			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {utts}
+			child { node {cmu\_us\_arctic\_slt\_0001.utt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
+		};
+		\end{tikzpicture}
+		
+		Maka perintah konfigurasi dapat seperti berikut:
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		./configure \
+		--with-fest-search-path=$TOOLS_DIR/festival/examples \
+		--with-sptk-search-path=$TOOLS_DIR/bin \
+		--with-hts-search-path=$TOOLS_DIR/bin \
+		--with-hts-engine-search-path=$TOOLS_DIR/bin
+		\end{minted}
+		
+		\textbf{Perhatikan}: Setelah baris terakhir tidak ada tanda '\textbackslash'
+		
+		Atau boleh juga (opsional) dengan menentukan DATASET dan SPEAKER nya:
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		./configure \
+		--with-fest-search-path=$TOOLS_DIR/festival/examples \
+		--with-sptk-search-path=$TOOLS_DIR/bin \
+		--with-hts-search-path=$TOOLS_DIR/bin \
+		--with-hts-engine-search-path=$TOOLS_DIR/bin \
+		DATASET=cmu_us_arctic SPEAKER=slt
+		\end{minted}
+		
+		\newpage
+		\item Dua atau lebih dataset, semisal:
+		
+		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+		\node {data}
+		child { node {labels}
+			child { node {gen}
+				child { node {cmu\_us\_arctic\_0000.lab}}
+			}
+		}
+		child [missing] {}
+		child [missing] {}
+		child { node {raw}
+			child { node {cmu\_us\_arctic\_awb\_0001.raw}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_1000.raw}}
+			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {txt}
+			child { node {cmu\_us\_arctic\_awb\_0001.txt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_1000.txt}}
+			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {utts}
+			child { node {cmu\_us\_arctic\_awb\_0001.utt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_1000.utt}}
+			child { node {cmu\_us\_arctic\_slt\_0001.utt}}
+			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
+		};
+		\end{tikzpicture}
+		
+		Maka wajib ditentukan salah satu data mana yang digunakan agar tidak rancu.
+		
+		Semisal apakah akan menggunakan pembicara AWB:
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		./configure \
+		--with-fest-search-path=$TOOLS_DIR/festival/examples \
+		--with-sptk-search-path=$TOOLS_DIR/bin \
+		--with-hts-search-path=$TOOLS_DIR/bin \
+		--with-hts-engine-search-path=$TOOLS_DIR/bin \
+		DATASET=cmu_us_arctic SPEAKER=awb
+		\end{minted}
+		
+		Atau pembicara SLT (harus salah satu):
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		./configure \
+		--with-fest-search-path=$TOOLS_DIR/festival/examples \
+		--with-sptk-search-path=$TOOLS_DIR/bin \
+		--with-hts-search-path=$TOOLS_DIR/bin \
+		--with-hts-engine-search-path=$TOOLS_DIR/bin \
+		DATASET=cmu_us_arctic SPEAKER=slt
+		\end{minted}
+		
+	\end{enumerate}
 	
 	
 \end{document}
