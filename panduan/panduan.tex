@@ -911,6 +911,11 @@ cd build_labs/
 		
 		\item Salin folder skrip \textbf{utt2lab/} ke folder ini.
 		
+		\item Beri hak akses \textit{executable} ke skrip \textbf{generate\_labels.sh} di folder \textbf{utt2lab/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x ./utt2lab/generate_labels.sh
+		\end{minted}		
+		
 		\item Jalankan skrip konversi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ./utt2lab/generate_labels.sh ./labs/ ./utts/ $FESTDIR/examples/dumpfeats ./utt2lab/
@@ -1211,5 +1216,76 @@ export PATH=$FESTDIR/examples:$PATH
 	\end{minted}
 	
 	\subsection{Unduh Github}
+	
+	Untuk memperoleh file atau folder dari Github memiliki beberapa cara,
+	namun disini hanya dijelaskan 2 saja, 
+	yaitu dengan cloning dan download blob.
+	
+	Sebagai contoh, disini akan digunakan contoh repository:\\
+	\url{https://github.com/mekatronik-achmadi/hts_grapheme}
+	
+	\subsubsection{Cloning Git}
+	
+	Dengan menggunakan metode cloning, dapat didownload seluruh struktur file/folder suatu repository.
+	Selain file/folder, akan didapatkan juga log/commit repository tersebut. 
+	Agar dapat melakukan cloning, diperlukan program \textbf{Git}.
+	Untuk instal Git di Ubuntu (dibutuhkan internet dan hak akses root/sudo):
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sudo apt-get install git
+	\end{minted}
+	
+	dan untuk Arch-Linux (dibutuhkan internet dan hak akses root/sudo):
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sudo pacman -S git
+	\end{minted}
+	
+	Langkah cloning:
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru.
+		
+		\item Semisal alamat URL repository adalah:\\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme} \\
+		Maka perintah cloning:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+git clone https://github.com/mekatronik-achmadi/hts_grapheme
+		\end{minted}
+		
+		\item Tunggu proses.
+		
+		\item Repository telah ter-cloning di folder \textbf{hts\_grapheme/}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+tree hts_grapheme/
+		\end{minted}
+		
+	\end{enumerate}
+	
+	\newpage
+	\subsubsection{Download Blob}
+	
+	Dengan menggunakan metode ini, dapat didownload spesifik file/folder,
+	tanpa harus mendownload seluruh repository.
+	Yang dibutuhkan hanyalah alamat URL file/folder yang ada di server Github.
+	
+	Sebagai contoh disini, akan di download folder \textbf{utt2lab} beserta seluruh isinya.
+	Alamat di server github adalah:\\
+	\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/scripts/utt2lab}
+	
+	Berikut langkahnya:
+	\begin{enumerate}
+		\item Buka situs DownGit.
+		Salah satunya yang dibangun oleh user minhaskamal.\\
+		\url{https://minhaskamal.github.io/DownGit/}
+		
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=450pt]{downgit.png}
+		\end{figure}
+		
+		\item Salin alamat URL folder \textbf{utt2lab} ke kolom panjang kosong di situs DownGit.
+		
+		\item Tekan Enter.
+		
+		\item File/folder akan terdownload dalam arsip Zip.
+	\end{enumerate}
 	
 \end{document}
