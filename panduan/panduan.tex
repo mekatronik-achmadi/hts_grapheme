@@ -82,8 +82,14 @@
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/panduan/panduan.tex}
 	
 	\newpage
+	\mbox{}
+	
+	\newpage
 	(catatan: Daftar Isi dan Index bisa diklik)
 	\tableofcontents
+	
+	\newpage
+	\mbox{}
 	
 	\newpage
 	\section{Requirement}
@@ -541,18 +547,14 @@ export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
 		
 		\newpage
-		\item Beri hak \textit{executable} untuk skrip \textbf{configure}.
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-chmod a+x configure
-		\end{minted}
-		
 		\item Set nama file log dengan jam dan tanggal.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 		\end{minted}
 		
 		\item Konfigurasi alamat tools untuk skrip demo:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -579,7 +581,7 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 		Tunggu proses selesai dan muncul bash-prompt.
 		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
 		
-		\item hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
+		\item Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
 		
 	\end{enumerate}
 	
@@ -698,6 +700,9 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 		\end{minted}
 		
 	\end{enumerate}
+
+	\newpage
+	\mbox{}
 	
 	\newpage
 	\section{Data Preparation}
@@ -1099,9 +1104,10 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
 
-		\item Beri hak \textit{executable} untuk skrip \textbf{configure}.
+		\item Jika diperlukan, bersihkan hasil sebelumnya.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-chmod a+x configure
+chmod a+x clean_reset.sh
+./clean_reset.sh
 		\end{minted}
 		
 		\item Set nama file log dengan jam dan tanggal.
@@ -1115,6 +1121,7 @@ export NMFILE="$(date +'%d%m%Y_%H%M')"
 		
 		\item Konfigurasi alamat tools untuk skrip demo:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -1129,8 +1136,8 @@ DATASET=vibid SPEAKER=fena
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
 		
-		Tunggu proses selesai dan muncul bash-prompt.
-		Selain tampil di terminal, proses akan tercatat di file log\_prepare\_jamtanggal.txt
+		Tunggu proses selesai.
+		Proses akan tercatat di file log\_prepare\_\textit{jamtanggal}.txt
 		
 		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -1138,10 +1145,9 @@ scriptpath=$(pwd)
 perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
 		\end{minted}
 		
-		Tunggu proses selesai dan muncul bash-prompt.
-		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
-		
-		\item Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
+		Tunggu proses selesai.
+		Proses akan tercatat di file log\_synthesis\_\textit{jamtanggal}.txt.
+		Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
 		
 	\end{enumerate}
 		
@@ -1156,6 +1162,7 @@ perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_
 	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
 	
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -1257,6 +1264,7 @@ DATASET=XXXX SPEAKER=YYYY
 		Maka perintah konfigurasi dengan menentukan DATASET dan SPEAKER nya:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -1279,10 +1287,14 @@ DATASET=cmu_us_arctic SPEAKER=slt
 		child [missing] {}
 		child { node {raw}
 			child { node {cmu\_us\_arctic\_awb\_0001.raw}}
+			child { node {cmu\_us\_arctic\_awb\_0002.raw}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_0999.raw}}
 			child { node {cmu\_us\_arctic\_awb\_1000.raw}}
 			child { node {cmu\_us\_arctic\_slt\_0001.raw}}
+			child { node {cmu\_us\_arctic\_slt\_0002.raw}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_0999.raw}}
 			child { node {cmu\_us\_arctic\_slt\_1000.raw}}
 		}
 		child [missing] {}
@@ -1291,12 +1303,20 @@ DATASET=cmu_us_arctic SPEAKER=slt
 		child [missing] {}
 		child [missing] {}
 		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
 		child { node {txt}
 			child { node {cmu\_us\_arctic\_awb\_0001.txt}}
+			child { node {cmu\_us\_arctic\_awb\_0002.txt}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_0999.txt}}
 			child { node {cmu\_us\_arctic\_awb\_1000.txt}}
 			child { node {cmu\_us\_arctic\_slt\_0001.txt}}
+			child { node {cmu\_us\_arctic\_slt\_0002.txt}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_0999.txt}}
 			child { node {cmu\_us\_arctic\_slt\_1000.txt}}
 		}
 		child [missing] {}
@@ -1305,12 +1325,20 @@ DATASET=cmu_us_arctic SPEAKER=slt
 		child [missing] {}
 		child [missing] {}
 		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
 		child { node {utts}
 			child { node {cmu\_us\_arctic\_awb\_0001.utt}}
+			child { node {cmu\_us\_arctic\_awb\_0002.utt}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_awb\_0999.utt}}
 			child { node {cmu\_us\_arctic\_awb\_1000.utt}}
 			child { node {cmu\_us\_arctic\_slt\_0001.utt}}
+			child { node {cmu\_us\_arctic\_slt\_0002.utt}}
 			child { node {....}}
+			child { node {cmu\_us\_arctic\_slt\_0999.utt}}
 			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
 		};
 		\end{tikzpicture}
@@ -1320,6 +1348,7 @@ DATASET=cmu_us_arctic SPEAKER=slt
 		Semisal apakah akan menggunakan pembicara AWB:
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -1327,9 +1356,10 @@ DATASET=cmu_us_arctic SPEAKER=slt
 --with-hts-engine-search-path=$TOOLS_DIR/bin \
 DATASET=cmu_us_arctic SPEAKER=awb
 		\end{minted}
-		
+
 		Atau pembicara SLT (harus salah satu):
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x configure
 ./configure \
 --with-fest-search-path=$TOOLS_DIR/festival/examples \
 --with-sptk-search-path=$TOOLS_DIR/bin \
@@ -1446,14 +1476,17 @@ tree hts_grapheme/
 		\item \textbf{remove\_unused.sh}.\\
 		Dapat digunakan untuk membantu menghapus file berdasarkan angka spesifik.
 		
-		\item \textbf{clean\_reset.sh}.\\
-		Dapat digunakan untuk membantu membersihkan file hasil proses untuk dapat mengulang dari awal.
+		\item \textbf{run\_synthesis.sh}.\\
+		Dapat digunakan untuk menjalankan proses synthesis tanpa memasukkan perintah satu per satu.
 	\end{itemize}
 	
 	\newpage
 	\section{Troubleshoot}
 	
 	Jika ditemukan masalah, solusinya berdoalah semoga masalah tersebut selesai dengan sendirinya.
+	
+	\newpage
+	\mbox{}
 	
 	\newpage
 	\section{Website}
@@ -1467,4 +1500,14 @@ tree hts_grapheme/
 		\url{https://google.com}
 		
 	\end{itemize}
+
+	\newpage
+	\mbox{}
+	
+	\newpage
+	\section{Referensi}
+	
+	\newpage
+	\mbox{}
+	
 \end{document}
