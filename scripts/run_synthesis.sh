@@ -8,7 +8,8 @@ chmod a+x configure
 --with-fest-search-path=/home/elokhts/.hts_sptk/festival/examples \
 --with-sptk-search-path=/home/elokhts/.hts_sptk/bin \
 --with-hts-search-path=/home/elokhts/.hts_sptk/bin \
---with-hts-engine-search-path=/home/elokhts/.hts_sptk/bin
+--with-hts-engine-search-path=/home/elokhts/.hts_sptk/bin \
+DATASET=vibid SPEAKER=fena
 
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 

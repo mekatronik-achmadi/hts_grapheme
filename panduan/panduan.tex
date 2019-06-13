@@ -46,7 +46,7 @@
 }
 
 \title{\Large \bf
-	Tutorial Penggunaan HTS dan Grapheme
+	Tutorial Penggunaan HTS (Grapheme)
 }
 
 \author{Achmadi ST MT}
@@ -1485,8 +1485,41 @@ tree hts_grapheme/
 	
 	\newpage
 	\section{Troubleshoot}
+	Berikut beberapa trouble yang telah dipahami:
 	
-	Jika ditemukan masalah, solusinya berdoalah semoga masalah tersebut selesai dengan sendirinya.
+	\begin{itemize}
+		\item Segmen Label phonem yang kurang dari 3 di txt/raw/utts.
+		Contoh:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+ Number of owners = 1
+SegLab   :  sy
+maxIter  :  20
+epsilon  :  0.000100
+minSeg   :  1
+Updating :  Means Variances MixWeights/DProbs TransProbs
+
+- system is PLAIN
+ERROR [+2121]  HInit: Too Few Observation Sequences [0]
+		\end{minted}
+		
+		Dari contoh terlihat bahwa phonem \textbf{sy} pada data raw/txt/utts untuk training model kurang dari 3.
+		Phonem yang kurang terlihat pada nilai \textbf{SegLab}.
+		
+		Solusi: Tambah data training (raw/txt/utts) yang memuat phone tersebut.
+		
+		\item Alignment yang tidak pas.
+		
+		\item Ukuran data synthesis terlalu besar.
+		Contoh:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+x2x : warning: input data is over the range of type 'short'!
+		\end{minted}
+		
+		Solusi: Cek label untuk synthesis dan berdoa.
+		
+	\end{itemize}
+	
+	Jika ditemukan masalah lain, solusinya berdoalah semoga masalah tersebut selesai dengan sendirinya.
 	
 	\newpage
 	\mbox{}
