@@ -1490,7 +1490,7 @@ tree hts_grapheme/
 	\begin{itemize}
 		\item Segmen Label phonem yang kurang dari 3 di txt/raw/utts.
 		Contoh:
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
  Number of owners = 1
 SegLab   :  sy
 maxIter  :  20
@@ -1507,15 +1507,44 @@ ERROR [+2121]  HInit: Too Few Observation Sequences [0]
 		
 		Solusi: Tambah data training (raw/txt/utts) yang memuat phone tersebut.
 		
-		\item Alignment yang tidak pas.
+		\item File full-context label yang akan disynthesis tidak tersedia.
+		Contoh:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+sed: can't read labels/gen/*.lab: No such file or directory
+Makefile:311: recipe for target 'list' failed
+make[1]: *** [list] Error 2
+		\end{minted}
+		
+		Solusi: cek folder \textbf{data/labels/gen/} apakah telah terisi full-context label.
 		
 		\item Ukuran data synthesis terlalu besar.
 		Contoh:
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 x2x : warning: input data is over the range of type 'short'!
 		\end{minted}
 		
-		Solusi: Cek label untuk synthesis dan berdoa.
+		Solusi: Cek konten label untuk synthesis dan berdoa.
+		
+		\item Alignment yang tidak pas.
+		Contoh:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+Unable to traverse 175 states in 77 frames
+WARNING [-7324]  StepBack: Bad data or over pruning
+in /home/elokhts/.hts_sptk/bin/HERest
+		\end{minted}
+		
+		Atau:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+WARNING [-9999]  HSMMAlign: No tokens survived to final node of network at beam 2000
+		\end{minted}
+		
+		Atau:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+Making data, labels, and scp from vibid_fena_0465.lab for GV...
+Cannot open No such file or directory at scripts/Training.pl line 1192, <SCP> line 365.
+		\end{minted}
+
+		Solusi: Cek konten utterance untuk training dan berdoa.
 		
 	\end{itemize}
 	
