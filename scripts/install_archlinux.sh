@@ -76,3 +76,11 @@ cd $TARGET_DIR/festvox
 ./configure --prefix=$TARGET_DIR
 sed -i "s#NUL)#NULL)#g" src/vc/src/sub/gmm_sub.cc
 make all
+
+sed -i "55s#( J#( j#" $FESTVOXDIR/src/grapheme/sampa.table
+sed -i "82s#( j#( y#" $FESTVOXDIR/src/grapheme/sampa.table
+
+sed -i "26s#(( A )))#(( a )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+sed -i "28s#(( ch )))#(( c )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+sed -i "35s#(( dZ )))#(( j )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
+sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm

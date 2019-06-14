@@ -728,7 +728,7 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 
 	\subsection{Build Text}
 	
-	Berikut langkah untuk membuat teks transkripsi dari satu file transkripsi:
+	Berikut langkah untuk membuat teks transkripsi individu (per file) dari satu file transkripsi induk:
 	Contoh disini memiliki nama \textbf{vibid\_fena.txt}.
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru di alamat \textbf{vibid\_fena.txt} berada.
@@ -737,7 +737,7 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p txt/
 		\end{minted}
-		
+
 		\item Jalankan perintah konversi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 filenm=vibid_fena.txt
@@ -754,6 +754,44 @@ done
 		\item Hasil teks akan ada di folder \textbf{txt/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 txt/
+		\end{minted}
+		
+	\end{enumerate}
+
+	\subsection{Build Transkripsi}
+	
+	Berikut langkah untuk membuat satu file teks transkripsi induk dari semua teks transkripsi individu (per file):
+	Contoh disini semua file teks memiliki pola nama \textbf{vibid\_fena\_xxxx.txt} dengan \textbf{xxxx} adalah 4 digit angka urutan file.
+	Semua file transkripsi individu file di folder \textbf{txt/}.
+	
+	\begin{enumerate}
+		\item Buka jendela terminal/shell baru di alamat folder \textbf{txt/} berada.
+		
+		\newpage
+		\item Set variabel DATASET dan SPEAKER sesuai nama file teks transkripsi individu.\\
+		Contoh disini \textbf{DATASET=vibid} dan \textbf{SPEAKER=fena}
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export DATASET=vibid
+export SPEAKER=fena
+		\end{minted}
+		
+		\item Jalankan perintah konversi.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export DATANAME=${DATASET}_${SPEAKER}
+rm $DATANAME.txt
+touch $DATANAME.txt
+
+cd txt/
+for i in `ls *.txt`;do
+	export TEXT=$(cat $i)
+	echo $TEXT >> ../$DATANAME.txt
+done
+cd ..
+		\end{minted}
+		
+		\item Hasil file teks transkripsi induk di file \textbf{vibid\_fena.txt}.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+cat -n $DATANAME.txt
 		\end{minted}
 		
 	\end{enumerate}
