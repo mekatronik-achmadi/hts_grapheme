@@ -4,7 +4,7 @@
 # sudo apt-get install gawk
 # sudo apt-get install sox
 # sudo apt-get install libx11-dev
-# sudo apt-get install gcc-multilib
+# sudo apt-get install build-essential
 # sudo apt-get install libncurses5-dev
 
 export SOURCE_DIR=~/HTS/install
