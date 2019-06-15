@@ -77,6 +77,15 @@ cd $TARGET_DIR/festvox
 sed -i "s#NUL)#NULL)#g" src/vc/src/sub/gmm_sub.cc
 make all
 
+export TOOLS_DIR=~/.hts_sptk
+export PATH=$TOOLS_DIR/bin:$PATH
+export PATH=$TOOLS_DIR/festival/bin:$PATH
+export PATH=$TOOLS_DIR/speech_tools/bin:$PATH
+export FESTVOXDIR=$TOOLS_DIR/festvox
+export FESTDIR=$TOOLS_DIR/festival
+export ESTDIR=$TOOLS_DIR/speech_tools
+export PATH=$FESTDIR/examples:$PATH
+
 sed -i "55s#( J#( j#" $FESTVOXDIR/src/grapheme/sampa.table
 sed -i "82s#( j#( y#" $FESTVOXDIR/src/grapheme/sampa.table
 

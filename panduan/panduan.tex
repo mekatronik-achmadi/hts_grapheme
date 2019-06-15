@@ -220,7 +220,7 @@
 	Paket yang dibutuhkan adalah:
 	
 	\begin{itemize}
-		\item compiler-toolchain atau build-system.
+		\item GCC (GNU C Compiler).
 		\item editor cli gawk.
 		\item alternatif shell csh.
 		\item pustaka pemrograman libx11.
@@ -232,7 +232,7 @@
 	
 	Berikut perintah untuk instalasi di distro Ubuntu:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-sudo apt-get install csh gawk sox libx11-dev build-essential libncurses5-dev
+sudo apt-get install csh gawk sox libx11-dev gcc-multilib libncurses5-dev
 	\end{minted}
 	
 	Untuk distro Arch-Linux:
@@ -1027,7 +1027,7 @@ cd build_raw/
 		\item Konvert ke format 16k wav (jika diperlukan).
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd wav/
-for i in `ls *.wav`;do sox $i -r 16000 $i;done
+for i in `ls *.wav`;do sox -t wav $i -r 16000 -c 1 $i;done
 cd ..
 		\end{minted}
 		
