@@ -885,6 +885,8 @@ done
 cd ..
 		\end{minted}
 		
+		Hasilnya akan tersedia di folder \textbf{wav\_re/}.
+		
 		\item Salin semua file wav rekaman ke folder \textbf{wav/}
 		
 		\item Pastikan file *.wav dan isi txt.done.data sesuai baik urutan maupun korespondensi.
@@ -1047,21 +1049,8 @@ cd ..
 		\end{minted}
 	
 		Hasilnya akan tersedia di folder \textbf{wav\_re/}.
-		
-		\newpage
+
 		\item Konvert wav ke raw yang ada di folder \textbf{wav/} atau \textbf{wav\_re/}.
-		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-cd wav/
-for i in `ls *.wav`;do
-	fname=$(echo $i | cut -f 1 -d '.')
-	ch_wave -c 0 -F 32000 -otype raw $fname.wav \
-	 | x2x +sf | interpolate -p 2 -d | ds -s 43 \
-	 | x2x +fs > ../raw/$fname.raw
-done
-cd ..
-		\end{minted}
-		
-		atau
 		
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd wav/
@@ -1069,6 +1058,19 @@ for i in `ls *.wav`;do
 	fname=$(echo $i | cut -f 1 -d '.')
 	wav2raw +s $fname.wav
 	mv $fname.raw ../raw/
+done
+cd ..
+		\end{minted}
+		
+		\newpage
+		atau
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+cd wav/
+for i in `ls *.wav`;do
+	fname=$(echo $i | cut -f 1 -d '.')
+	ch_wave -c 0 -F 32000 -otype raw $fname.wav \
+	| x2x +sf | interpolate -p 2 -d | ds -s 43 \
+	| x2x +fs > ../raw/$fname.raw
 done
 cd ..
 		\end{minted}
