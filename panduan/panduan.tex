@@ -127,6 +127,9 @@
 	Jika tidak, jangan menyerah, semua kesulitan akan berakhir, baik dengan memang selesai dan sukses, atau tinggalkan saja jika sudah menyerah.
 	
 	\newpage
+	\mbox{}
+	
+	\newpage
 	\section{Instalasi Tools}.
 	
 	Berikut adalah instalasi semua tools yang dibutuhkan secara runtut.
@@ -702,9 +705,6 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 	\end{enumerate}
 
 	\newpage
-	\mbox{}
-	
-	\newpage
 	\section{Data Preparation}
 	
 	Panduan berikut untuk menyiapkan data rekaman untuk proses synthesis.
@@ -875,29 +875,40 @@ $FESTVOXDIR/src/clustergen/setup_cg cmu ind vibid_fena
 		
 		\item Salin file \textbf{txt.done.data} yang sebelumnya dibuat ke folder \textbf{etc/}.
 		
+		\item Konvert ke format 16k wav (jika belum).
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p wav_re/
+cd wav/
+for i in `ls *.wav`;do
+	sox -t wav $i -r 16000 -c 1 ../wav_re/$i;
+done
+cd ..
+		\end{minted}
+		
 		\item Salin semua file wav rekaman ke folder \textbf{wav/}
 		
 		\item Pastikan file *.wav dan isi txt.done.data sesuai baik urutan maupun korespondensi.
 		
-		\item Beberapa langkah opsional (jika dibutuhkan):
-		
-		\begin{itemize}
-			\item Normalisasi daya:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/get_wavs recording/*.wav
-			\end{minted}
-			
-			\item Mengurangi durasi sunyi di awal dan akhir:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/prune_silence wav/*.wav
-			\end{minted}
-			
-			\item Mengurangi durasi sunyi di tengah kalimat:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/prune_middle_silence wav/*.wav
-			\end{minted}
-			
-		\end{itemize}
+%		\item Beberapa langkah opsional (jika dibutuhkan):
+%		
+%		\begin{itemize}
+%			\item Normalisasi daya:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%mkdir -p wav/
+%./bin/get_wavs recording/*.wav
+%			\end{minted}
+%			
+%			\item Mengurangi durasi sunyi di awal dan akhir:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%./bin/prune_silence wav/*.wav
+%			\end{minted}
+%			
+%			\item Mengurangi durasi sunyi di tengah kalimat:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%./bin/prune_middle_silences wav/*.wav
+%			\end{minted}
+%			
+%		\end{itemize}
 
 		\item Set pilihan bahasa ke \textbf{Grapheme}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -1004,27 +1015,28 @@ cd build_raw/
 		
 		\item Salin semua file wave rekaman (*.wav) ke folder \textbf{wav/}.
 		
-		\item Beberapa langkah opsional (jika dibutuhkan):
-		
-		\begin{itemize}
-			\item Normalisasi daya:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/get_wavs recording/*.wav
-			\end{minted}
-			
-			\item Mengurangi durasi sunyi di awal dan akhir:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/prune_silence wav/*.wav
-			\end{minted}
-			
-			\item Mengurangi durasi sunyi di tengah kalimat:
-			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-./bin/prune_middle_silence wav/*.wav
-			\end{minted}
-			
-		\end{itemize}
+%		\item Beberapa langkah opsional (jika dibutuhkan):
+%		
+%		\begin{itemize}
+%			\item Normalisasi daya:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%./bin/get_wavs recording/*.wav
+%			\end{minted}
+%			
+%			\item Mengurangi durasi sunyi di awal dan akhir:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%mkdir -p wav/
+%./bin/prune_silences wav/*.wav
+%			\end{minted}
+%			
+%			\item Mengurangi durasi sunyi di tengah kalimat:
+%			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+%./bin/prune_middle_silence wav/*.wav
+%			\end{minted}
+%			
+%		\end{itemize}
 	
-		\item Konvert ke format 16k wav (jika diperlukan).
+		\item Konvert ke format 16k wav (jika belum).
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p wav_re/
 cd wav/
@@ -1067,6 +1079,9 @@ ls -1 raw/
 		\end{minted}
 		
 	\end{enumerate}
+
+	\newpage
+	\mbox{}
 
 	\newpage
 	\section{Synthesis Wav}
@@ -1607,7 +1622,8 @@ Cannot open No such file or directory at scripts/Training.pl line 1192, <SCP> li
 	
 	\newpage
 	\mbox{}
-
+	
+	\newpage
 	\section{Website}
 	
 	Berikut URL Website yang bermanfaat:
