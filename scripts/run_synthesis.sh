@@ -26,7 +26,6 @@ DATASET=vibid SPEAKER=fena
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 
 sed -i "45s#all: data voice#all: data#" Makefile
-
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 
 scriptpath=$(pwd)

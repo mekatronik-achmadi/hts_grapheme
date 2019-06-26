@@ -572,6 +572,7 @@ DATASET=cmu_us_arctic SPEAKER=slt
 		\item Persiapan data dan skrip.
 		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sed -i "45s#all: data voice#all: data#" Makefile
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
 		
@@ -1211,6 +1212,7 @@ DATASET=vibid SPEAKER=fena
 		\item Persiapan data dan skrip.
 		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+sed -i "45s#all: data voice#all: data#" Makefile
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
 		
@@ -1598,7 +1600,13 @@ ERROR [+2121]  HInit: Too Few Observation Sequences [0]
 		Dari contoh terlihat bahwa phonem \textbf{sy} pada data raw/txt/utts untuk training model kurang dari 3.
 		Phonem yang kurang terlihat pada nilai \textbf{SegLab}.
 		
-		Solusi: Tambah data training (raw/txt/utts) yang memuat phone tersebut.
+		Solusi: Kemungkinan:
+		\begin{itemize}
+			\item Tambah data training (raw/txt/utts) yang memuat phone tersebut.
+			\item Pastikan saat \textbf{configure} nilai variabel seperti SAMPFREQ, FRAMELEN, FRAMESHIFT,\\ 
+			LOWERF0, UPPERF0, dst telah pas dengan rekaman.
+		\end{itemize}
+		
 		
 		\item File full-context label yang akan disynthesis tidak tersedia.
 		Contoh:
