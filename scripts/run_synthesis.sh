@@ -14,10 +14,10 @@ chmod a+x clean_reset.sh
 
 chmod a+x configure
 ./configure \
---with-fest-search-path=/home/elokhts/.hts_sptk/festival/examples \
---with-sptk-search-path=/home/elokhts/.hts_sptk/bin \
---with-hts-search-path=/home/elokhts/.hts_sptk/bin \
---with-hts-engine-search-path=/home/elokhts/.hts_sptk/bin \
+--with-fest-search-path=$TOOLS_DIR/festival/examples \
+--with-sptk-search-path=$TOOLS_DIR/bin \
+--with-hts-search-path=$TOOLS_DIR/bin \
+--with-hts-engine-search-path=$TOOLS_DIR/bin \
 SAMPFREQ=16000 FRAMELEN=400 FRAMESHIFT=80 WINDOWTYPE=1 \
 NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
 MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
@@ -25,7 +25,7 @@ DATASET=vibid SPEAKER=fena
 
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 
-sed -i "45s#all: data voice#all: data" Makefile
+sed -i "45s#all: data voice#all: data#" Makefile
 
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 
