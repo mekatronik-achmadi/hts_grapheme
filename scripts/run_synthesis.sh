@@ -18,6 +18,9 @@ chmod a+x configure
 --with-sptk-search-path=/home/elokhts/.hts_sptk/bin \
 --with-hts-search-path=/home/elokhts/.hts_sptk/bin \
 --with-hts-engine-search-path=/home/elokhts/.hts_sptk/bin \
+SAMPFREQ=16000 FRAMELEN=400 FRAMESHIFT=80 WINDOWTYPE=1 \
+NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
+MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
 DATASET=vibid SPEAKER=fena
 
 export NMFILE="$(date +'%d%m%Y_%H%M')"
