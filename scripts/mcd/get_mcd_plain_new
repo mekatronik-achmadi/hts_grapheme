@@ -58,7 +58,7 @@ def main(rawArgs):
         )
     )
     parser.add_argument(
-        '--param_order', dest='paramOrder', default=34, type=int,
+        '--param_order', dest='paramOrder', default=10, type=int,
         metavar='ORDER',
         help='parameter order of the cepstral files'
     )
