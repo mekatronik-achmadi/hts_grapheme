@@ -58,7 +58,7 @@ def main(rawArgs):
         )
     )
     parser.add_argument(
-        '--param_order', dest='paramOrder', default=10, type=int,
+        '--param_order', dest='paramOrder', default=1, type=int,
         metavar='ORDER',
         help='parameter order of the cepstral files'
     )
@@ -117,16 +117,16 @@ def main(rawArgs):
         synth = getSynthVecSeq(uttId)
         
         # ignore 0th cepstral component
-        nat = nat[:, 1:]
-        synth = synth[:, 1:]
+        #nat = nat[:, 1:]
+        #synth = synth[:, 1:]
 
         #assert len(nat) == len(synth)
         
         if not len(nat) == len(synth):
             print("array length is not same, manipulating\n")
             
-            natFile = "test_data/ref-examples/" + uttId + ".mgc"
-            synthFile = "test_data/aligned-synth-examples/" + uttId + ".mgc"
+            natFile = args.natDir + "/" + uttId + "." + args.ext
+            synthFile = args.synthDir + "/" + uttId + "." + args.ext
             
             print(natFile)
             print(synthFile)
@@ -142,8 +142,8 @@ def main(rawArgs):
             nat = np.reshape(natNew,(-1, vecSeqIo.vecSize)).astype(np.float)
             synth = np.reshape(synthNew,(-1, vecSeqIo.vecSize)).astype(np.float)
             
-            nat = nat[:, 1:]
-            synth = synth[:, 1:]
+            #nat = nat[:, 1:]
+            #synth = synth[:, 1:]
 
         if reRemoveSegments is None:
             cost = sum([
