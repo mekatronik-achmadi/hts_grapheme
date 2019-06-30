@@ -19,7 +19,7 @@ for i in `echo $DIRLIST`;do
     cat data_test/${i}/test_data/corpus.lst | \
     xargs bin/get_mcd_plain_new \
     data_test/${i}/test_data/ref-examples \
-    data_test/${i}/test_data/aligned-synth-examples | grep "overall MCD" >> $RESFNAME
+    data_test/${i}/test_data/aligned-synth-examples | grep -i "overall MCD" >> $RESFNAME
 done
 
 

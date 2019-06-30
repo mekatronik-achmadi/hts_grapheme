@@ -115,13 +115,7 @@ def main(rawArgs):
         print 'processing', uttId
         nat = getNatVecSeq(uttId)
         synth = getSynthVecSeq(uttId)
-        
-        # ignore 0th cepstral component
-        #nat = nat[:, 1:]
-        #synth = synth[:, 1:]
 
-        #assert len(nat) == len(synth)
-        
         if not len(nat) == len(synth):
             print("array length is not same, manipulating\n")
             
@@ -141,9 +135,6 @@ def main(rawArgs):
             
             nat = np.reshape(natNew,(-1, vecSeqIo.vecSize)).astype(np.float)
             synth = np.reshape(synthNew,(-1, vecSeqIo.vecSize)).astype(np.float)
-            
-            #nat = nat[:, 1:]
-            #synth = synth[:, 1:]
 
         if reRemoveSegments is None:
             cost = sum([
