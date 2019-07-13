@@ -1665,9 +1665,144 @@ chmod a+x bin/get_mcd_plain_new
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/tes_mcd.py}
 		
 		Skrip python adalah bagian esensial dari skrip \textbf{get\_mcd\_plain} yang dapat digunakan untuk menguji array dalam proses uji MCD.
-	
+		
 	\end{itemize}
+
+	\subsubsection{Matematis}
 	
+	Berikut adalah pendekatan matematis yang di tarik dari fungsi \textbf{logSpecDbConst} yang disedikan oleh \textbf{fast\_metric.pyx} (bagian dari paket MCD):
+	
+	Persamaan jarak dua array (\textit{distance}):
+	\begin{equation}
+		d = \frac{20}{\log{10}\sqrt{2}} \sqrt{ \sum_{i=0}^{N} ( x(i)-y(i) )^2 }
+	\end{equation}
+	
+	dimana $x$ dan $y$ adalah masing-masing array frame MGC rekaman asli dan synthesis,
+	sedangkan $i$ adalah urutan elemen array dalam satu frame.\\
+	
+	dan total harga jarak untuk satu pasang rekaman asli dan synthesis:
+	
+	\begin{equation}
+		c = \sum_{j=0}^{M} d(j)
+	\end{equation}
+	
+	dimana $j$ adalah urutan frame dari array MGC yang telah di bentuk matrix persegi berdasarkan nilai \textbf{paramOrder}. 
+	Sebagai contoh bentukan ulang array dari konten suatu file MGC:
+	
+	\[
+		\begin{bmatrix}
+			x_{0} & x_{1} & \dots & x_{N}
+		\end{bmatrix}
+		\rightarrow
+		\begin{bmatrix}
+			x_{00} & x_{01} & \dots & x_{0i} \\
+			x_{01} & x_{11} & \dots & x_{j1} \\
+			\vdots & \vdots & \ddots & \vdots \\
+			x_{0j} & x_{1j} & \dots & x_{ji}
+		\end{bmatrix}
+	\]
+	
+	dimana $N$ adalah panjang array MGC dari file, $i$ adalah paramOrder yang dipilih dan $j$ adalah total frame dari $j=\frac{N}{i}$.\\
+	
+	\newpage
+	Dan untuk nilai MCD dari keseluruhan (\textit{overall}) semua file rekaman dan synthesis:
+	
+	\begin{equation}
+		MCD = \frac{\sum_{k=1}^{K} c(k)}{\sum_{k=1}^{K} J(k)}
+	\end{equation}
+	
+	dimana k adalah urutan file pasangan rekaman/synthesis yang diproses,
+	$c$ adalah harga total jarak frame array,
+	$J$ adalah jumlah total frame dari semua MGC rekaman asli (sesuai nilai $j$).
+	
+	\subsection{Penyesuaian PAU}
+	
+	Berikut adalah contoh penyesuaian PAU/SIL untuk membuang silence yang terlalu banyak dan tidak perlu.
+	Prosidy tidak dicantumkan untuk memudahkan.
+	
+	\begin{itemize}
+		\item Contoh konten asli.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+       0    1500000 x^x-pau+pau=pau@
+ 1500000    4500000 x^pau-pau+pau=pau@
+ 4500000    7150000 pau^pau-pau+pau=a@
+ 7150000    9650000 pau^pau-pau+a=y@
+ 9650000   11450000 pau^pau-a+y=o@
+11450000   14000000 pau^a-y+o=c@
+14000000   23800001 a^y-o+c=e@
+23800001   24600000 y^o-c+e=p@
+24600000   24800000 o^c-e+p=a@
+24800000   26250000 c^e-p+a=t@
+26250000   30699999 e^p-a+t=pau@
+30699999   31150000 p^a-t+pau=pau@
+31150000   32650001 a^t-pau+pau=pau@
+32650001   35650001 t^pau-pau+pau=x@
+35650001   37800000 pau^pau-pau+x=x@
+		\end{minted}
+		
+		\item Awalan yang dibuang.\\
+		Semua baris yang sisi kiri sama dengan (=) hanya berisi pau, x\textasciicircum pau, atau x\textasciicircum x.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+      0    1500000 x^x-pau+pau=pau@
+1500000    4500000 x^pau-pau+pau=pau@
+4500000    7150000 pau^pau-pau+pau=a@
+		\end{minted}
+		
+		\item Modifikasi sebagian pau ke x di awal kalimat.\\
+		\begin{itemize}
+			\item pau\textasciicircum pau-pau menjadi x\textasciicircum x-pau
+			\item pau\textasciicircum pau menjadi x\textasciicircum pau
+		\end{itemize}
+	
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+ 7150000    9650000 pau^pau-pau+a=y@
+ 9650000   11450000 pau^pau-a+y=o@
+11450000   14000000 pau^a-y+o=c@
+		\end{minted}
+		
+		menjadi
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+ 7150000    9650000 x^x-pau+a=y@
+ 9650000   11450000 x^pau-a+y=o@
+11450000   14000000 pau^a-y+o=c@
+		\end{minted}
+		
+		\newpage
+		\item Inti kalimat dibiarkan tidak berubah:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+14000000   23800001 a^y-o+c=e@
+23800001   24600000 y^o-c+e=p@
+24800000   26250000 c^e-p+a=t@
+26250000   30699999 e^p-a+t=pau@
+		\end{minted}
+		
+		\item Modifikasi sebagian pau ke x di akhir kalimat.\\
+		\begin{itemize}
+			\item +pau=pau menjadi +pau=x
+			\item -pau+pau=pau menjadi -pau+x+x
+		\end{itemize}
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+30699999   31150000 p^a-t+pau=pau@
+31150000   32650001 a^t-pau+pau=pau@
+		\end{minted}
+		
+		menjadi
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+30699999   31150000 p^a-t+pau=x@
+31150000   32650001 a^t-pau+x=x@
+		\end{minted}
+		
+		\item Akhiran yang dibuang.\\
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
+32650001   35650001 t^pau-pau+pau=x@
+35650001   37800000 pau^pau-pau+x=x@
+		\end{minted}
+		
+	\end{itemize}
+
 	\newpage
 	\mbox{}
 	
