@@ -1577,6 +1577,99 @@ tree hts_grapheme/
 		\item \textbf{install\_ubuntu.sh} dan \textbf{install\_archlinux.sh}.\\
 		Dapat digunakan untuk membantu instalasi paket tools di distro Ubuntu dan Arch-Linux.
 	\end{itemize}
+
+	\subsection{MCD}
+	
+	MCD (Mel Cepstral Distortion) adalah ukuran seberapa berbeda dua urutan mel cepstra.
+	Biasa digunakan untuk menguji kualitas hasil speech-synthesis terhadap rekaman asli.
+	Pengujian MCD mengunakan interpreter Python2 atau Python3.
+	
+	\subsubsection{Instalasi}
+	
+	Pada dasarnya Python MCD bersifat portable tanpa harus instalasi permanen.	
+	Berikut instalasi untuk Python MCD:
+	
+	\begin{itemize}
+		\item Download paket instalasi di alamat:\\
+		\url{https://pypi.org/project/mcd/}\\
+		atau:\\
+		\url{https://files.pythonhosted.org/packages/88/7d/a4efc008cc5dda3d2a67fe3ac9896f9b868c5d9f63ee5ebbb07010b44bd6/mcd-0.4.tar.gz}
+		
+		\item ekstrak paket.
+		Buka terminal di folder file paket berada.
+		Perintah ekstrak:
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+mkdir -p mcd_test/
+tar zxvf mcd-0.4.tar.gz -C mcd_test/
+cd mcd_test/mcd*/
+		\end{minted}
+		
+		\item install modul htk\_io.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+pip install htk_io --user
+		\end{minted}
+		
+		\item build modul mcd.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+python setup.py build
+python setup.py build_ext --inplace
+chmod a+x bin/get_mcd_plain
+		\end{minted}
+				
+	\end{itemize}
+
+	\subsubsection{Test Example}
+	Selanjutnya test dengan contoh file MGC yang sudah ada:
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+export PYTHONPATH=.
+cat test_data/corpus.lst | xargs \
+bin/get_mcd_plain \
+test_data/ref-examples \
+test_data/aligned-synth-examples
+	\end{minted}
+	
+	Berikut bagian penting dari perintah:
+	\begin{itemize}
+		\item \textbf{test\_data/corpus.lst}.\\
+		Berisi daftar nama file *.mgc yang akan diuji.
+		
+		\item \textbf{test\_data/ref-examples}.\\
+		Folder berisi file *.mgc dari rekaman asli.
+		
+		\item \textbf{test\_data/aligned-synth-examples}.\\
+		Folder berisi file *.mgc dan *.lf0 dari speech-synthesis.
+		
+	\end{itemize}
+
+	\newpage
+	\subsubsection{Modifikasi}
+	
+	Berikut beberapa skrip modifikasi:
+	\begin{itemize}
+		\item \textbf{test\_mcd\_run.sh}.\\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/test_mcd_run.sh}
+		
+		Skrip untuk uji MCD beberapa grup synthesis terhadap naturalnya dalam sekali eksekusi.
+		
+		\item \textbf{get\_mcd\_plain\_new}.\\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/get_mcd_plain_new}
+		Taruh skrip ini di \textbf{bin/} dan beri hak akses eksekusi.
+		
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
+chmod a+x bin/get_mcd_plain_new
+		\end{minted}
+		
+		Skrip ini adalah modifikasi dari skrip \textbf{get\_mcd\_plain} dengan tambahan fitur untuk menyamakan panjang array mgc.
+		
+		\item \textbf{tes\_mcd.py}.\\
+		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/tes_mcd.py}
+		
+		Skrip python adalah bagian esensial dari skrip \textbf{get\_mcd\_plain} yang dapat digunakan untuk menguji array dalam proses uji MCD.
+	
+	\end{itemize}
+	
+	\newpage
+	\mbox{}
 	
 	\newpage
 	\section{Troubleshoot}
