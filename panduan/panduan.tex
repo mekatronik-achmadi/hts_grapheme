@@ -16,7 +16,7 @@
 
 \newcommand{\WindowsLogo}{\raisebox{-0.1em}{\includegraphics[height=0.8em]{winlogo/Windows_3_logo_simplified}}}
 \newcommand{\PowerLogo}{\raisebox{-0.1em}{\includegraphics[height=0.8em]{winlogo/power}}}
-\newcommand{\WinKey}{\keys{\WindowsLogo}}	
+\newcommand{\WinKey}{\keys{\WindowsLogo}}
 \newcommand{\PowerKey}{\keys{\PowerLogo}}
 
 \newcommand{\ShowOsVersion}{
@@ -27,7 +27,7 @@
 \newcommand{\ShowTexVersion}{
 	\immediate\write18{\unexpanded{foo=`pdflatex -version | head -n1` && echo "\\\verb${foo}" > tmp.tex}}
 	\input{tmp}\immediate\write18{rm tmp.tex}
-}	
+}
 
 \addto\captionsenglish{\renewcommand{\contentsname}{Daftar Isi}}
 
@@ -62,43 +62,43 @@
 \tikzstyle{optional}=[dashed,fill=gray!50]
 
 \begin{document}
-	
+
 	\maketitle
 	\thispagestyle{empty}
 	\pagestyle{empty}
-	
+
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=250pt]{yerba.png}
 	\end{figure}
-	
+
 	\vspace*{175px}
 	\noindent This book written using: \\
 	OS : \ShowOsVersion \\
 	TeX : \ShowTexVersion \\
 	Update: {\today} at \currenttime \\
-	
+
 	\noindent Document Tex Source:\\
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/panduan/panduan.tex}
-	
+
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	(catatan: Daftar Isi dan Index bisa diklik)
 	\tableofcontents
-	
+
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	\section{Requirement}
-	
+
 	Untuk menjalankan isi panduan ini diperlukan antara lain:
-	
+
 	\subsection{Sistem Komputer}
 	Di sisi sistem komputer, membutuhkan minimal:
-	
+
 	\begin{itemize}
 		\item Komputer PC atau Laptop dengan pendingin bagus.
 		\item Multi-Core Processor dengan clock minimal 2.5GHz
@@ -108,10 +108,10 @@
 		Tidak direkomendasikan MacOS atau BSD-\textit{family} lainnya.
 		\item Koneksi internet minimal stabil 1MBps (untuk download sources).
 	\end{itemize}
-	
+
 	\subsection{Pengguna}
 	Sedangkan untuk pengguna sendiri, membutuhkan minimal:
-	
+
 	\begin{itemize}
 		\item Memahami akses shell atau terminal ke suatu alamat directory/folder.
 		\item Memahami struktur directory/folder dan paham pindah alamatnya.
@@ -125,48 +125,48 @@
 
 	Jika semua kebutuhan ini terpenuhi, maka kemungkinan besar anda mampu menggunakan panduan ini.
 	Jika tidak, jangan menyerah, semua kesulitan akan berakhir, baik dengan memang selesai dan sukses, atau tinggalkan saja jika sudah menyerah.
-	
+
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	\section{Instalasi Tools}.
-	
+
 	Berikut adalah instalasi semua tools yang dibutuhkan secara runtut.
-	
+
 	\subsection{Download Sources}
-	
+
 	Berikut download URL (update Juni 2019) untuk semua sources yang dibutuhkan.
 	Semua teks link dibawah ini dapat diklik dan otomatis membuka webrowser menuju URL yang diklik.
-	
-	
+
+
 	\subsubsection{Free Open-Source}
-	
+
 	Semua paket open-sources berikut dapat didownload dengan bebas.
-	
+
 	\begin{itemize}
 		\item festival-2.5.0-release.tar.gz.\\
 		\url{http://www.festvox.org/packed/festival/2.5/festival-2.5.0-release.tar.gz}
-		
+
 		\item speech\_tools-2.5.0-release.tar.gz \\
 		\url{http://www.festvox.org/packed/festival/2.5/speech_tools-2.5.0-release.tar.gz}
-		
+
 		\item festvox-2.8.0-release.tar.gz.\\
 		\url{http://www.festvox.org/packed/festvox/2.8/festvox-2.8.0-release.tar.gz}
-		
+
 		\item festlex\_CMU.tar.gz, festlex\_OALD.tar.gz, dan festlex\_POSLEX.tar.gz. \\
 		\url{http://www.festvox.org/packed/festival/2.5/festlex_CMU.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/festlex_OALD.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/festlex_POSLEX.tar.gz}
-		
+
 		\item festvox\_kallpc16k.tar.gz dan festvox\_rablpc16k.tar.gz \\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_kallpc16k.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_rablpc16k.tar.gz}
-		
+
 		\item festvox\_don.tar.gz dan  festvox\_kedlpc16k.tar.gz\\
 		\url{http://www.cstr.ed.ac.uk/downloads/festival/1.95/festvox_don.tar.gz} \\
 		\url{http://www.cstr.ed.ac.uk/downloads/festival/1.95/festvox_kedlpc16k.tar.gz}
-		
+
 		\item festvox\_cmu\_us\_*\_cg.tar.gz. \\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_cmu_us_aew_cg.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_cmu_us_ahw_cg.tar.gz}\\
@@ -186,42 +186,42 @@
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_cmu_us_rxr_cg.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_cmu_us_slp_cg.tar.gz}\\
 		\url{http://www.festvox.org/packed/festival/2.5/voices/festvox_cmu_us_slt_cg.tar.gz}
-		
+
 		\item HTS-2.3\_for\_HTK-3.4.1.tar.bz2 \\
 		\url{http://hts.sp.nitech.ac.jp/archives/2.3/HTS-2.3_for_HTK-3.4.1.tar.bz2}
-		
+
 		\item hts\_engine\_API-1.10.tar.gz \\
 		\url{http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.10.tar.gz}
-		
+
 		\item SPTK-3.10.tar.gz \\
 		\url{http://downloads.sourceforge.net/sp-tk/SPTK-3.10.tar.gz}
 
 		\item flite-2.0.0-release.tar.bz2 \\
 		\url{http://festvox.org/flite/packed/flite-2.0/flite-2.0.0-release.tar.bz2}
 	\end{itemize}
-	
+
 	\subsubsection{Limited Open-Sources}
-	
+
 	Semua paket open-sources berikut dapat didownload hanya dengan hak akses khusus.
-	
+
 	\begin{itemize}
 		\item HTK-3.4.1.tar.gz \\
 		\url{http://htk.eng.cam.ac.uk/ftp/software/HTK-3.4.1.tar.gz}
-		
+
 		\item HTK-samples-3.4.1.tar.gz \\
 		\url{http://htk.eng.cam.ac.uk/ftp/software/HTK-samples-3.4.1.tar.gz}
-		
+
 		\item HDecode-3.4.1.tar.gz \\
 		\url{http://htk.eng.cam.ac.uk/prot-docs/hdecode.shtml}
-		
-		
+
+
 	\end{itemize}
 
 	\subsection{Instalasi Paket Dasar}
-	
+
 	Selanjutnya adalah instalasi kebutuhan dasar yang telah tersedia di repository distro yang anda pakai.
 	Paket yang dibutuhkan adalah:
-	
+
 	\begin{itemize}
 		\item GCC (GNU C Compiler).
 		\item editor cli gawk.
@@ -232,51 +232,51 @@
 	\end{itemize}
 
 	Untuk instalasi ini, anda mungkin akan butuh koneksi internet dan hak akses root/sudo. \\
-	
+
 	Berikut perintah untuk instalasi di distro Ubuntu:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sudo apt-get install csh gawk sox libx11-dev gcc-multilib libncurses5-dev
 	\end{minted}
-	
+
 	Untuk distro Arch-Linux:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
-sudo pacman -S tcsh gawk sox libx11 gcc-multilib 
+sudo pacman -S tcsh gawk sox libx11 gcc-multilib
 	\end{minted}
-	
+
 	ditambah paket ncurses5-compat-libs dari AUR:\\
 	\url{https://aur.archlinux.org/packages/ncurses5-compat-libs/}
-	
+
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sudo pacman -U ncurses5-compat-libs*
 	\end{minted}
-	
+
 	\newpage
 	\subsection{Persiapan}
-	
+
 	Berikut langkah persiapan instalasi.
-	
+
 	\begin{enumerate}
 		\item buat folder yang berisi semua paket source yang telah dikumpulkan.
 		Contoh disini adalah di alamat \textbf{\textasciitilde/HTS/install}.
-		
+
 		\item Salin semua paket source ke dalam folder tersebut.
-		
+
 		\item Tentukan alamat folder tujuan instalasi.
 		Contoh disini adalah di alamat \textbf{\textasciitilde/.hts\_sptk}
-		
+
 		\item Buka jendela terminal baru.
-		
+
 		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export SOURCE_DIR=~/HTS/install
 export TARGET_DIR=~/.hts_sptk
 		\end{minted}
-		
+
 		\item Check file di folder paket sumber.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 $SOURCE_DIR
 		\end{minted}
-		
+
 		dimana hasil yang diharapkan.
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 festival-2.5.0-release.tar.gz
@@ -311,31 +311,31 @@ hts_engine_API-1.10.tar.gz
 speech_tools-2.5.0-release.tar.gz
 SPTK-3.10.tar.gz
 	\end{minted}
-	
+
 	\newpage
 	\item buat folder tujuan.
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p $TARGET_DIR
 	\end{minted}
-	
+
 	\item Anda dapat menutup jendela terminal/shell.
-		
+
 	\end{enumerate}
 
 	\subsection{Extraksi}
-	
+
 	Selanjutnya adalah ekstraksi semua paket sources.
 	Berikut langkahnya:
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal baru.
-		
+
 		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export SOURCE_DIR=~/HTS/install
 export TARGET_DIR=~/.hts_sptk
 		\end{minted}
-		
+
 		\item Masukkan perintah ekstraksi untuk semua paket:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 tar zxvf $SOURCE_DIR/SPTK-3.10.tar.gz -C $TARGET_DIR
@@ -370,7 +370,7 @@ tar zxvf $SOURCE_DIR/festvox-2.8.0-release.tar.gz -C $TARGET_DIR
 tar jxvf $SOURCE_DIR/flite-2.0.0-release.tar.bz2 -C $TARGET_DIR
 ls -1 $TARGET_DIR
 		\end{minted}
-		
+
 		\newpage
 		\item setelah baris perintah terakhir dieksekusi, maka hasil yang diharapkan:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -389,27 +389,27 @@ samples
 speech_tools
 SPTK-3.10
 		\end{minted}
-		
+
 		\item Anda dapat menutup jendela terminal/shell.
-		
+
 	\end{enumerate}
 
 	\subsection{Build dan Install}
-	
+
 	Selanjutnya adalah langkah instalasi setiap komponen.
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal baru.
-		
+
 		\item Masukkan variabel lingkungan untuk alamat paket sources dan alamat tujuan instalasi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export SOURCE_DIR=~/HTS/install
 export TARGET_DIR=~/.hts_sptk
 		\end{minted}
-		
+
 		\item Jendela teminal/shell ini yang akan digunakan untuk instalasi semua komponen.
 		Jangan menutup atau membuka jendela baru.
-		
+
 		\item Berikutnya perintah instalasi tiap komponen.
 	\end{enumerate}
 
@@ -420,9 +420,9 @@ cd $TARGET_DIR/SPTK-3.10
 make all
 make install
 	\end{minted}
-	
+
 	\subsubsection{HTK}
-	
+
 	Untuk Ubuntu:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd $TARGET_DIR/htk
@@ -433,7 +433,7 @@ make install
 make hdecode
 make install-hdecode
 	\end{minted}
-	
+
 	\newpage
 	Untuk Arch-Linux:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -445,7 +445,7 @@ make install
 make hdecode
 make install-hdecode
 	\end{minted}
-	
+
 	\subsubsection{HTS}
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd $TARGET_DIR/hts_engine_API-1.10
@@ -453,7 +453,7 @@ cd $TARGET_DIR/hts_engine_API-1.10
 make all
 make install
 	\end{minted}
-	
+
 	\subsubsection{Flite}
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd $TARGET_DIR/flite-2.0.0-release
@@ -469,7 +469,7 @@ cd $TARGET_DIR/speech_tools
 make all
 make install
 	\end{minted}
-	
+
 	\subsubsection{Festival}
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd $TARGET_DIR/festival
@@ -477,7 +477,7 @@ cd $TARGET_DIR/festival
 make all
 make install
 	\end{minted}
-	
+
 	\subsubsection{FestVox}
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd $TARGET_DIR/festvox
@@ -485,19 +485,19 @@ cd $TARGET_DIR/festvox
 sed -i "s#NUL)#NULL)#g" src/vc/src/sub/gmm_sub.cc
 make all
 	\end{minted}
-	
+
 	Instalasi seluruh komponen telah selesai, maka anda menutup jendela terminal/shell.
-	
+
 	\newpage
 	\subsection{Tools EnVars}
-	
+
 	Selanjutnya untuk dapat menggunakan tools yang telah diinstal,
 	anda perlu men-set variable lingkungan (Environment Variables atau EnVars),
 	sehingga shell/terminal dapat mengakses tools tersebut.
-	
+
 	Jika contoh dalam panduan ini menggunakan alamat instalasi \textbf{\textasciitilde/.hts\_sptk},
 	maka perintah set envars:
-	
+
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
 
@@ -511,29 +511,29 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 	\end{minted}
-	
+
 	Perintah ini wajib dijalankan setiap kali anda menggunakan terminal/shell yang baru untuk menjalankan tools yang telah diinstal.
 
 	\subsection{Uji Demo}
-	
+
 	Setelah proses instalasi selesai, maka dapat dilakukan pengujian paket Demo untuk memastikan instalasi telah sukses.
-	
+
 	Sebelum menguji, download terlebih dahulu paket Demo untuk HTS 2.3 Speaker dependent:\\
 	\url{http://hts.sp.nitech.ac.jp/archives/2.3/HTS-demo_CMU-ARCTIC-SLT.tar.bz2}
-	
+
 	\subsubsection{Run Demo}
 	Berikut langkah menjalankan demo:
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal dimana file \textbf{HTS-demo\_CMU-ARCTIC-SLT.tar.bz2} berada.
-		
+
 		\item Extract paket demo ke suatu folder (sebagai contoh \textbf{demo\_hts}), kemudian pindah ke alamat tersebut.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p demo_hts/
 tar jxvf HTS-demo_CMU-ARCTIC-SLT.tar.bz2 -C demo_hts/
 cd demo_hts/HTS-demo_CMU-ARCTIC-SLT/
 		\end{minted}
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -548,13 +548,13 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
-		
+
 		\newpage
 		\item Set nama file log dengan jam dan tanggal.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 		\end{minted}
-		
+
 		\item Konfigurasi alamat tools untuk skrip demo:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
@@ -575,7 +575,7 @@ DATASET=cmu_us_arctic SPEAKER=slt
 sed -i "45s#all: data voice#all: data#" Makefile
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
-		
+
 		Tunggu proses selesai dan muncul bash-prompt.
 		Selain tampil di terminal, proses akan tercatat di file log\_prepare\_jamtanggal.txt
 
@@ -584,26 +584,26 @@ make all 2>&1 | tee log_prepare_$NMFILE.txt
 scriptpath=$(pwd)
 perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
 		\end{minted}
-		
+
 		Tunggu proses selesai dan muncul bash-prompt.
 		Selain tampil di terminal, proses akan tercatat di file log\_synthesis\_jamtanggal.txt
-		
+
 		\item Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\subsubsection{Tracking Proses Synthesis}.
-	
+
 	Selama proses synthesis berjalan, anda dapat menjejak (\textit{tracking}) sudah sampai tahap mana proses berlangsung.
 	Tracking dilakukan dengan menilik tahapan "Start" yang tercatat di file log\_synthesis\_jamtanggal.txt.
-	
+
 	Sebagai contoh file log terakhir atau sedang berlangsung memiliki nama \textbf{log\_synthesis\_10062019\_1444.txt}.
 	Berikut langkah tracking:
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal/shell di alamat file \textbf{log\_synthesis\_10062019\_1444.txt} berada.
-		
+
 		\item Perintah untuk print menampilkan tahapan synthesis yang sudah selesai dan yang terakhir sedang berjalan:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cat log_synthesis_10062019_1444.txt | grep "Start"
@@ -613,12 +613,12 @@ cat log_synthesis_10062019_1444.txt | grep "Start"
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 tail -n35 scripts/Config.pm
 		\end{minted}
-		
+
 	\end{enumerate}
 
 	Jika proses synthesis berhenti di tengah jalan, proses dapat di ulang tanpa harus dari awal,
 	dengan cara memanipulasi nilai 0 atau 1 pada segmen \textbf{SWITCH} pada file \textbf{scripts/Config.pm}.
-	
+
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 # Switch ================================
 $MKEMV = 1; # preparing environments
@@ -656,12 +656,12 @@ $WGEN2 = 1; # synthesizing waveforms (2mix)
 
 	\newpage
 	\subsection{Modifikasi Grapheme}
-	
+
 	Panduan ini akan membahas modifikasi Grapheme untuk menyesuaikan dengan bahasa Indonesia.
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru.
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -676,19 +676,19 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
-		
+
 		\item ganti deskripsi karakter di \textbf{\$FESTVOXDIR/src/grapheme/sampa.table}
-		\begin{itemize}		
+		\begin{itemize}
 			\item "J" ke "j" pada baris 55.
 			\item "j" ke "y" pada baris 82.
 		\end{itemize}
-	
+
 		Perintahnya:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sed -i "55s#( J#( j#" $FESTVOXDIR/src/grapheme/sampa.table
 sed -i "82s#( j#( y#" $FESTVOXDIR/src/grapheme/sampa.table
 		\end{minted}
-		
+
 		\item ganti asosiasi karakter di \textbf{\$FESTVOXDIR/src/grapheme/unicode\_sampa\_mapping.scm}
 		\begin{itemize}
 			\item A ke a di baris 26
@@ -696,7 +696,7 @@ sed -i "82s#( j#( y#" $FESTVOXDIR/src/grapheme/sampa.table
 			\item dZ ke j di baris 35
 			\item j ke y di baris 50
 		\end{itemize}
-		
+
 		Perintahnya:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sed -i "26s#(( A )))#(( a )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
@@ -705,21 +705,21 @@ sed -i "28s#(( ch )))#(( c )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.
 sed -i "35s#(( dZ )))#(( j )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
 sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.scm
 		\end{minted}
-		
+
 	\end{enumerate}
 
 	\newpage
 	\section{Data Preparation}
-	
+
 	Panduan berikut untuk menyiapkan data rekaman untuk proses synthesis.
-	
+
 	\subsection{Minimum Data}
-	
+
 	Minimum data yang dibutuhkan secara standar adalah:
 	\begin{itemize}
-		\item semua file rekaman wav untuk synthesis. 
+		\item semua file rekaman wav untuk synthesis.
 		Contoh disini memiliki nama vibid\_fena\_xxxx.wav
-		
+
 		\item satu file text berisi transkripsi rekaman wav sebelumnya.
 		Contoh disini memiliki nama vibid\_fena.txt
 	\end{itemize}
@@ -731,12 +731,12 @@ sed -i "50s#(( j )))#(( y )))#" $FESTVOXDIR/src/grapheme/unicode_sampa_mapping.s
 	\end{itemize}
 
 	\subsection{Build Text}
-	
+
 	Berikut langkah untuk membuat teks transkripsi individu (per file) dari satu file transkripsi induk:
 	Contoh disini memiliki nama \textbf{vibid\_fena.txt}.
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru di alamat \textbf{vibid\_fena.txt} berada.
-		
+
 		\item Buat folder untuk hasil teks.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p txt/
@@ -754,23 +754,23 @@ for i in `cat $filenm`;do
 	echo $i > txt/${fname}_${num}.txt
 done
 		\end{minted}
-		
+
 		\item Hasil teks akan ada di folder \textbf{txt/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 txt/
 		\end{minted}
-		
+
 	\end{enumerate}
 
 	\subsection{Build Transkripsi}
-	
+
 	Berikut langkah untuk membuat satu file teks transkripsi induk dari semua teks transkripsi individu (per file):
 	Contoh disini semua file teks memiliki pola nama \textbf{vibid\_fena\_xxxx.txt} dengan \textbf{xxxx} adalah 4 digit angka urutan file.
 	Semua file transkripsi individu file di folder \textbf{txt/}.
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru di alamat folder \textbf{txt/} berada.
-		
+
 		\newpage
 		\item Set variabel DATASET dan SPEAKER sesuai nama file teks transkripsi individu.\\
 		Contoh disini \textbf{DATASET=vibid} dan \textbf{SPEAKER=fena}
@@ -778,7 +778,7 @@ ls -1 txt/
 export DATASET=vibid
 export SPEAKER=fena
 		\end{minted}
-		
+
 		\item Jalankan perintah konversi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export DATANAME=${DATASET}_${SPEAKER}
@@ -792,19 +792,19 @@ for i in `ls *.txt`;do
 done
 cd ..
 		\end{minted}
-		
+
 		\item Hasil file teks transkripsi induk di file \textbf{vibid\_fena.txt}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cat -n $DATANAME.txt
 		\end{minted}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\subsection{Konversi Trankripsi}
-	
+
 	Berikut langkah konversi file teks transkripsi ke format prompt yang sesuai dengan Festival.
-	
+
 	Contoh file disini adalah vibid\_fena.txt yang memiliki konten:
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 saya suka baju yang berwarna merah tua
@@ -813,26 +813,26 @@ sepatuku kotor belum aku cuci dari kemarin
 jalan itu ramai sekali setiap pagi hari
 ....
 	\end{minted}
-	
+
 	\begin{enumerate}
 		\item Download skrip \textbf{text2prompt.py} yang sudah dimodifikasi di alamat: \\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/text2prompt.py}
-		
+
 		\item Salin text2prompt.py ke folder dimana vibid\_fena.txt berada.
-		
+
 		\item Buka jendela terminal/shell baru di alamat text2prompt.py dan vibid\_fena.txt berada.
-		
+
 		\item jalankan skrip python untuk konversi
 		pola perintah:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 python2 text2prompt.py [nama_file_teks] txt.done.data [DATASET_SPEAKER] [jumlah_digit_angka]
 		\end{minted}
-		
+
 		sebagai contoh:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 python2 text2prompt.py vibid_fena.txt txt.done.data vibid_fena 4
 		\end{minted}
-		
+
 	\end{enumerate}
 
 	Hasil teks prompt adalah file teks \textbf{txt.done.data} dengan seperti:
@@ -845,12 +845,12 @@ python2 text2prompt.py vibid_fena.txt txt.done.data vibid_fena 4
 	\end{minted}
 
 	\subsection{Build Utterances}
-	
+
 	Berikut langkah mengkonversi file prompt ke teks utterances (utt).
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru.
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -865,20 +865,20 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
-		
+
 		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_utts/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p build_utts/
 cd build_utts/
 		\end{minted}
-		
+
 		\item Bentuk struktur folder dasar
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 $FESTVOXDIR/src/clustergen/setup_cg cmu ind vibid_fena
 		\end{minted}
-		
+
 		\item Salin file \textbf{txt.done.data} yang sebelumnya dibuat ke folder \textbf{etc/}.
-		
+
 		\item Konvert wav ke format 16k wav (jika belum).
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p wav_re/
@@ -888,64 +888,64 @@ for i in `ls *.wav`;do
 done
 cd ..
 		\end{minted}
-		
+
 		Hasilnya akan tersedia di folder \textbf{wav\_re/}.
-		
+
 		\item Salin semua file wav rekaman ke folder \textbf{wav/}
-		
+
 		\item Pastikan file *.wav dan isi txt.done.data sesuai baik urutan maupun korespondensi.
-		
+
 %		\item Beberapa langkah opsional (jika dibutuhkan):
-%		
+%
 %		\begin{itemize}
 %			\item Normalisasi daya:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %mkdir -p wav/
 %./bin/get_wavs recording/*.wav
 %			\end{minted}
-%			
+%
 %			\item Mengurangi durasi sunyi di awal dan akhir:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %./bin/prune_silence wav/*.wav
 %			\end{minted}
-%			
+%
 %			\item Mengurangi durasi sunyi di tengah kalimat:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %./bin/prune_middle_silences wav/*.wav
 %			\end{minted}
-%			
+%
 %		\end{itemize}
 
 		\item Set pilihan bahasa ke \textbf{Grapheme}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 $FESTVOXDIR/src/grapheme/make_cg_grapheme
 		\end{minted}
-		
+
 		\item Build utterances
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ./bin/do_build parallel build_prompts
 ./bin/do_build label
 ./bin/do_build parallel build_utts
 		\end{minted}
-		
+
 		\item Hasil utterance akan berada di folder \textbf{festival/utts/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 festival/utts/
 		\end{minted}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\subsection{Build Full Label}
-	
+
 	Berikut adalah langkah membuat full context labelling berdasarkan utterances.
 	Sebelum melanjutkan, download terlebih semua skrip untuk konversi di alamat:\\
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/scripts/utt2lab}
-	
+
 	Berikut langkahnya:
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru.
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -960,28 +960,28 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
-		
+
 		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_labs/}.
 		Di bawah folder tersebut, buat folder \textbf{utts/} dan \textbf{labs/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p build_labs/{labs,utts}/
 cd build_labs/
 		\end{minted}
-		
+
 		\item Salin semua file utterances (*.utt) ke folder \textbf{utts/}.
-		
+
 		\item Salin folder skrip \textbf{utt2lab/} ke folder ini.
-		
+
 		\item Beri hak akses \textit{executable} ke skrip \textbf{generate\_labels.sh} di folder \textbf{utt2lab/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x ./utt2lab/generate_labels.sh
 		\end{minted}
-		
+
 		\item Jalankan skrip konversi.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ./utt2lab/generate_labels.sh ./labs/ ./utts/ $FESTDIR/examples/dumpfeats ./utt2lab/
 		\end{minted}
-		
+
 		\item Hasil full context label akan ada di folder \textbf{labs/full/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 labs/full/
@@ -991,12 +991,12 @@ ls -1 labs/full/
 
 	\newpage
 	\subsection{Build RAW}
-	
+
 	Berikut adalah langkah konversi file wav ke raw.
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru.
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -1011,37 +1011,37 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 		\end{minted}
-		
+
 		\item Buat folder baru, sebagai contoh nama folder \textbf{build\_raw/}.
 		Di bawah folder tersebut, buat folder \textbf{wav/} dan \textbf{raw/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p build_raw/{raw,wav}/
 cd build_raw/
 		\end{minted}
-		
+
 		\item Salin semua file wave rekaman (*.wav) ke folder \textbf{wav/}.
-		
+
 %		\item Beberapa langkah opsional (jika dibutuhkan):
-%		
+%
 %		\begin{itemize}
 %			\item Normalisasi daya:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %./bin/get_wavs recording/*.wav
 %			\end{minted}
-%			
+%
 %			\item Mengurangi durasi sunyi di awal dan akhir:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %mkdir -p wav/
 %./bin/prune_silences wav/*.wav
 %			\end{minted}
-%			
+%
 %			\item Mengurangi durasi sunyi di tengah kalimat:
 %			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 %./bin/prune_middle_silence wav/*.wav
 %			\end{minted}
-%			
+%
 %		\end{itemize}
-	
+
 		\item Konvert wav ke format 16k wav (jika belum).
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p wav_re/
@@ -1051,11 +1051,11 @@ for i in `ls *.wav`;do
 done
 cd ..
 		\end{minted}
-	
+
 		Hasilnya akan tersedia di folder \textbf{wav\_re/}.
 
 		\item Konvert wav ke raw yang ada di folder \textbf{wav/} atau \textbf{wav\_re/}.
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 cd wav/
 for i in `ls *.wav`;do
@@ -1065,7 +1065,7 @@ for i in `ls *.wav`;do
 done
 cd ..
 		\end{minted}
-		
+
 		\newpage
 		atau
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
@@ -1078,12 +1078,12 @@ for i in `ls *.wav`;do
 done
 cd ..
 		\end{minted}
-		
+
 		\item Hasil raw akan di folder \textbf{raw/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 ls -1 raw/
 		\end{minted}
-		
+
 	\end{enumerate}
 
 	\newpage
@@ -1091,80 +1091,80 @@ ls -1 raw/
 
 	\newpage
 	\section{Synthesis Wav}
-	
+
 	Panduan bagian ini akan menjelaskan proses synthesis wav.
 	Yang harus disiapkan adalah:
 	\begin{itemize}
 		\item instalasi tools.
-		
+
 		\item Struktur file/folder untuk synthesis HTS.
-		
+
 		\item file question untuk \textit{decision-tree}.
-		
+
 		\item file raw rekaman (*.raw).
-		
+
 		\item file teks transkripsi (*.txt).
-		
+
 		\item file utterances (*.utt).
-		
+
 		\item file full context label yang akan di synthesis (*.lab).
 	\end{itemize}
-	
+
 	\subsection{Struktur file/folder}
-	
+
 	Berikut langkah menyiapkan struktur file/folder untuk systhesis.
-	
+
 	\begin{enumerate}
 		\item Download paket Zip template.
 		Paket dapat didownload di alamat:\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/template}
-		
+
 		\item Buka jendela terminal/shell baru di alamat file \textbf{template.zip} berada.
-		
-		
+
+
 		\item Ekstrak konten \textbf{template.zip} dan ganti nama folder semisal ke \textbf{run\_synth/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 unzip template.zip -d ./
 mv template/ run_synth/
 cd run_synth/
 		\end{minted}
-		
+
 		\item Download file question.\\
 		English: \url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/questions/english/questions_qst001.hed}\\
 		Bahasa: \url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/questions/bahasa/questions_qst001.hed}
-		
+
 		\item Salin file question ke folder \textbf{data/questions/}.
-		
+
 		\item Buat folder untuk data yang akan di synthesis.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p data/{raw,txt,utts}
 		\end{minted}
-		
+
 		\item Salin semua file raw rekaman (*.raw) ke folder \textbf{data/raw/}.
-		
+
 		\item Salin semua file teks transkripsi (*.txt) ke folder \textbf{data/txt/}.
-		
+
 		\item Salin semua file utterance (*.utt) ke folder \textbf{data/utts/}.
-		
+
 		\item Pastikan file raw, teks transkripsi, dan utterance sudah bersesuaian.
-		
+
 		\item Buat folder untuk full-context label yang akan di synthesis.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 mkdir -p data/labels/gen/
 		\end{minted}
-		
+
 		\item Salin semua file full-context label (*.lab) yang akan di synthesis.
-		
+
 	\end{enumerate}
 
 	\newpage
 	\subsection{Running synthesis}
-	
+
 	Berikut langkah untuk menjalankan synthesis di folder sebelumya dibuat (\textbf{run\_synth/}).
-	
+
 	\begin{enumerate}
 		\item Buka jendela terminal di alamat folder synthesys (\textbf{run\_synth/}).
-		
+
 		\item Panggil Envars tools:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
@@ -1185,16 +1185,16 @@ export PATH=$FESTDIR/examples:$PATH
 chmod a+x clean_reset.sh
 ./clean_reset.sh
 		\end{minted}
-		
+
 		\item Set nama file log dengan jam dan tanggal.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export NMFILE="$(date +'%d%m%Y_%H%M')"
 		\end{minted}
-		
+
 		\item Dapatkan nama file yang di training untuk variabel DATASET dan SPEAKER.
 		Semisal contoh nama file adalah \textbf{vibid\_fena}.
 		Maka nilai variabel \textbf{DATASET=vibid} dan \textbf{SPEAKER=fena}.
-		
+
 		\item Konfigurasi alamat tools untuk skrip demo:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
@@ -1208,42 +1208,42 @@ NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
 MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
 DATASET=vibid SPEAKER=fena
 		\end{minted}
-		
+
 		\item Persiapan data dan skrip.
 		Alamat dataset ada di \textbf{data/\{raw,txt,utts\}}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sed -i "45s#all: data voice#all: data#" Makefile
 make all 2>&1 | tee log_prepare_$NMFILE.txt
 		\end{minted}
-		
+
 		Tunggu proses selesai.
 		Proses akan tercatat di file log\_prepare\_\textit{jamtanggal}.txt
-		
+
 		\item Synthesis kalimat yang ada di \textbf{data/labels/gen/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 scriptpath=$(pwd)
 perl scripts/Training.pl $scriptpath/scripts/Config.pm 2>&1 | tee log_synthesis_$NMFILE.txt
 		\end{minted}
-		
+
 		Tunggu proses selesai.
 		Proses akan tercatat di file log\_synthesis\_\textit{jamtanggal}.txt.
 		Hasil synthesis dapat di cek di folder \textbf{gen/qst001/ver1/\{1mix,2mix,hts\_engine,stc\}}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\mbox{}
-		
+
 	\newpage
 	\section{Trivia}
-	
+
 	\subsection{DATASET dan SPEAKER}
-	
+
 	Variabel DATASET dan SPEAKER digunakan untuk memilih DATASET atau SPEAKER yang berbeda namun dalam satu paket dataset.
 	Kedua variabel ini akan menentukan nama dataset dan pembicara mana yang akan diproses.
-	
+
 	Sebagai contoh, jika DATASET=XXXX dan SPEAKER=YYYY, maka perintah konfigurasinya:
-	
+
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
 ./configure \
@@ -1256,9 +1256,9 @@ NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
 MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
 DATASET=XXXX SPEAKER=YYYY
 	\end{minted}
-	
+
 	Dan data yang akan diproses harus memiliki nama dan struktur file/folder utama seperti ini:
-	
+
 	\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
 	\node {data}
 	child { node {labels}
@@ -1300,13 +1300,13 @@ DATASET=XXXX SPEAKER=YYYY
 		child { node {XXXX\_YYYY\_1000.utt}}
 	};
 	\end{tikzpicture}
-	
+
 	\newpage
 	Untuk mempermudah, berikut dijelaskan contoh:
-	
+
 	\begin{enumerate}
 		\item Hanya ada satu data set, semisal:
-		
+
 		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
 		\node {data}
 		child { node {labels}
@@ -1346,9 +1346,9 @@ DATASET=XXXX SPEAKER=YYYY
 			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
 		};
 		\end{tikzpicture}
-		
+
 		Maka perintah konfigurasi dengan menentukan DATASET dan SPEAKER nya:
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
 ./configure \
@@ -1361,10 +1361,10 @@ NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
 MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
 DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
-		
+
 		\newpage
 		\item Dua atau lebih dataset, semisal:
-		
+
 		\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)},	edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
 		\node {data}
 		child { node {labels}
@@ -1431,11 +1431,11 @@ DATASET=cmu_us_arctic SPEAKER=slt
 			child { node {cmu\_us\_arctic\_slt\_1000.utt}}
 		};
 		\end{tikzpicture}
-		
+
 		Maka wajib ditentukan salah satu data mana yang digunakan agar tidak rancu.
-		
+
 		Semisal apakah akan menggunakan pembicara AWB:
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x configure
 ./configure \
@@ -1462,14 +1462,14 @@ NORMALIZE=1 FFTLEN=1024 FREQWARP=0.42 GAMMA=1 \
 MGCORDER=24 LNGAIN=1 LOWERF0=75 UPPERF0=600 \
 DATASET=cmu_us_arctic SPEAKER=slt
 		\end{minted}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\subsection{Tools EnVars}
-	
+
 	Pengulangan untuk mempermudah mengingat set EnVars ini akan sering dipanggil.
-	
+
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 export TOOLS_DIR=~/.hts_sptk
 
@@ -1483,118 +1483,118 @@ export ESTDIR=$TOOLS_DIR/speech_tools
 
 export PATH=$FESTDIR/examples:$PATH
 	\end{minted}
-	
+
 	\subsection{Unduh Github}
-	
+
 	Untuk memperoleh file atau folder dari Github memiliki beberapa cara,
-	namun disini hanya dijelaskan 2 saja, 
+	namun disini hanya dijelaskan 2 saja,
 	yaitu dengan cloning dan download blob.
-	
+
 	Sebagai contoh, disini akan digunakan contoh repository:\\
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme}
-	
+
 	\subsubsection{Cloning Git}
-	
+
 	Dengan menggunakan metode cloning, dapat didownload seluruh struktur file/folder suatu repository.
-	Selain file/folder, akan didapatkan juga log/commit repository tersebut. 
+	Selain file/folder, akan didapatkan juga log/commit repository tersebut.
 	Agar dapat melakukan cloning, diperlukan program \textbf{Git}.
 	Untuk instal Git di Ubuntu (dibutuhkan internet dan hak akses root/sudo):
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sudo apt-get install git
 	\end{minted}
-	
+
 	dan untuk Arch-Linux (dibutuhkan internet dan hak akses root/sudo):
 	\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 sudo pacman -S git
 	\end{minted}
-	
+
 	Langkah cloning:
 	\begin{enumerate}
 		\item Buka jendela terminal/shell baru.
-		
+
 		\item Semisal alamat URL repository adalah:\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme} \\
 		Maka perintah cloning:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 git clone https://github.com/mekatronik-achmadi/hts_grapheme
 		\end{minted}
-		
+
 		\item Tunggu proses.
-		
+
 		\item Repository telah ter-cloning di folder \textbf{hts\_grapheme/}.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 tree hts_grapheme/
 		\end{minted}
-		
+
 	\end{enumerate}
-	
+
 	\newpage
 	\subsubsection{Download Blob}
-	
+
 	Dengan menggunakan metode ini, dapat didownload spesifik file/folder,
 	tanpa harus mendownload seluruh repository.
 	Yang dibutuhkan hanyalah alamat URL file/folder yang ada di server Github.
-	
+
 	Sebagai contoh disini, akan di download folder \textbf{utt2lab} beserta seluruh isinya.
 	Alamat di server github adalah:\\
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/scripts/utt2lab}
-	
+
 	Berikut langkahnya:
 	\begin{enumerate}
 		\item Buka situs DownGit.
 		Salah satunya yang dibangun oleh user minhaskamal.\\
 		\url{https://minhaskamal.github.io/DownGit/}
-		
+
 		\begin{figure}[!ht]
 			\centering
 			\includegraphics[width=450pt]{downgit.png}
 		\end{figure}
-		
+
 		\item Salin alamat URL folder \textbf{utt2lab} ke kolom panjang kosong di situs DownGit.
-		
+
 		\item Tekan Enter.
-		
+
 		\item File/folder akan terdownload dalam arsip Zip.
 	\end{enumerate}
 
 	\subsection{Script Tambahan}
-	
+
 	Tesedia di repository beberapa skrip Bash tambahan untuk mempermudah salin atau hapus file.
 	Skrip tersedia di alamat:\\
 	\url{https://github.com/mekatronik-achmadi/hts_grapheme/tree/master/scripts}
-	
+
 	Skrip tambahan yang tersedia antara lain:
 	\begin{itemize}
 		\item \textbf{copy\_loop.sh}.\\
 		Dapat digunakan untuk membantu salin file berdasarkan nama dan rentang angka spesifik.
-		
+
 		\item \textbf{remove\_unused.sh}.\\
 		Dapat digunakan untuk membantu menghapus file berdasarkan angka spesifik.
-		
+
 		\item \textbf{run\_synthesis.sh}.\\
 		Dapat digunakan untuk menjalankan proses synthesis tanpa memasukkan perintah satu per satu.
-		
+
 		\item \textbf{install\_ubuntu.sh} dan \textbf{install\_archlinux.sh}.\\
 		Dapat digunakan untuk membantu instalasi paket tools di distro Ubuntu dan Arch-Linux.
 	\end{itemize}
 
 	\subsection{MCD}
-	
+
 	MCD (Mel Cepstral Distortion) adalah ukuran seberapa berbeda dua urutan mel cepstra.
 	Biasa digunakan untuk menguji kualitas hasil speech-synthesis terhadap rekaman asli.
 	Pengujian MCD mengunakan interpreter Python2 atau Python3.
-	
+
 	\subsubsection{Instalasi}
-	
-	Pada dasarnya Python MCD bersifat portable tanpa harus instalasi permanen.	
+
+	Pada dasarnya Python MCD bersifat portable tanpa harus instalasi permanen.
 	Berikut instalasi untuk Python MCD:
-	
+
 	\begin{itemize}
 		\item Download paket instalasi di alamat:\\
 		\url{https://pypi.org/project/mcd/}\\
 		atau:\\
 		\url{https://files.pythonhosted.org/packages/88/7d/a4efc008cc5dda3d2a67fe3ac9896f9b868c5d9f63ee5ebbb07010b44bd6/mcd-0.4.tar.gz}
-		
+
 		\item ekstrak paket.
 		Buka terminal di folder file paket berada.
 		Perintah ekstrak:
@@ -1603,19 +1603,19 @@ mkdir -p mcd_test/
 tar zxvf mcd-0.4.tar.gz -C mcd_test/
 cd mcd_test/mcd*/
 		\end{minted}
-		
+
 		\item install modul htk\_io.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 pip install htk_io --user
 		\end{minted}
-		
+
 		\item build modul mcd.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 python setup.py build
 python setup.py build_ext --inplace
 chmod a+x bin/get_mcd_plain
 		\end{minted}
-				
+
 	\end{itemize}
 
 	\subsubsection{Test Example}
@@ -1627,68 +1627,68 @@ bin/get_mcd_plain \
 test_data/ref-examples \
 test_data/aligned-synth-examples
 	\end{minted}
-	
+
 	Berikut bagian penting dari perintah:
 	\begin{itemize}
 		\item \textbf{test\_data/corpus.lst}.\\
 		Berisi daftar nama file *.mgc yang akan diuji.
-		
+
 		\item \textbf{test\_data/ref-examples}.\\
 		Folder berisi file *.mgc dari rekaman asli.
-		
+
 		\item \textbf{test\_data/aligned-synth-examples}.\\
 		Folder berisi file *.mgc dan *.lf0 dari speech-synthesis.
-		
+
 	\end{itemize}
 
 	\newpage
 	\subsubsection{Modifikasi}
-	
+
 	Berikut beberapa skrip modifikasi:
 	\begin{itemize}
 		\item \textbf{test\_mcd\_run.sh}.\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/test_mcd_run.sh}
-		
+
 		Skrip untuk uji MCD beberapa grup synthesis terhadap naturalnya dalam sekali eksekusi.
-		
+
 		\item \textbf{get\_mcd\_plain\_new}.\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/get_mcd_plain_new}
 		Taruh skrip ini di \textbf{bin/} dan beri hak akses eksekusi.
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{bash}
 chmod a+x bin/get_mcd_plain_new
 		\end{minted}
-		
+
 		Skrip ini adalah modifikasi dari skrip \textbf{get\_mcd\_plain} dengan tambahan fitur untuk menyamakan panjang array mgc.
-		
+
 		\item \textbf{tes\_mcd.py}.\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme/blob/master/scripts/mcd/tes_mcd.py}
-		
+
 		Skrip python adalah bagian esensial dari skrip \textbf{get\_mcd\_plain} yang dapat digunakan untuk menguji array dalam proses uji MCD.
-		
+
 	\end{itemize}
 
 	\subsubsection{Matematis}
-	
+
 	Berikut adalah pendekatan matematis yang di tarik dari fungsi \textbf{logSpecDbConst} yang disedikan oleh \textbf{fast\_metric.pyx} (bagian dari paket MCD):
-	
+
 	Persamaan jarak dua array (\textit{distance}):
 	\begin{equation}
-		d = \frac{20}{\log{10}\sqrt{2}} \sqrt{ \sum_{i=0}^{N} ( x(i)-y(i) )^2 }
+		d = \frac{20}{(\log{10})\sqrt{2}} \sqrt{ \sum_{i=0}^{N} ( x(i)-y(i) )^2 }
 	\end{equation}
-	
+
 	dimana $x$ dan $y$ adalah masing-masing array frame MGC rekaman asli dan synthesis,
 	sedangkan $i$ adalah urutan elemen array dalam satu frame.\\
-	
+
 	dan total harga jarak untuk satu pasang rekaman asli dan synthesis:
-	
+
 	\begin{equation}
 		c = \sum_{j=0}^{M} d(j)
 	\end{equation}
-	
-	dimana $j$ adalah urutan frame dari array MGC yang telah di bentuk matrix persegi berdasarkan nilai \textbf{paramOrder}. 
+
+	dimana $j$ adalah urutan frame dari array MGC yang telah di bentuk matrix persegi berdasarkan nilai \textbf{paramOrder}.
 	Sebagai contoh bentukan ulang array dari konten suatu file MGC:
-	
+
 	\[
 		\begin{bmatrix}
 			x_{0} & x_{1} & \dots & x_{N}
@@ -1701,25 +1701,25 @@ chmod a+x bin/get_mcd_plain_new
 			x_{0j} & x_{1j} & \dots & x_{ji}
 		\end{bmatrix}
 	\]
-	
+
 	dimana $N$ adalah panjang array MGC dari file, $i$ adalah paramOrder yang dipilih dan $j$ adalah total frame dari $j=\frac{N}{i}$.\\
-	
+
 	\newpage
 	Dan untuk nilai MCD dari keseluruhan (\textit{overall}) semua file rekaman dan synthesis:
-	
+
 	\begin{equation}
 		MCD = \frac{\sum_{k=1}^{K} c(k)}{\sum_{k=1}^{K} J(k)}
 	\end{equation}
-	
+
 	dimana k adalah urutan file pasangan rekaman/synthesis yang diproses,
 	$c$ adalah harga total jarak frame array,
 	$J$ adalah jumlah total frame dari semua MGC rekaman asli (sesuai nilai $j$).
-	
+
 	\subsection{Penyesuaian PAU}
-	
+
 	Berikut adalah contoh penyesuaian PAU/SIL untuk membuang silence yang terlalu banyak dan tidak perlu.
 	Prosidy tidak dicantumkan untuk memudahkan.
-	
+
 	\begin{itemize}
 		\item Contoh konten asli.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
@@ -1739,7 +1739,7 @@ chmod a+x bin/get_mcd_plain_new
 32650001   35650001 t^pau-pau+pau=x@
 35650001   37800000 pau^pau-pau+x=x@
 		\end{minted}
-		
+
 		\item Awalan yang dibuang.\\
 		Semua baris yang sisi kiri sama dengan (=) hanya berisi pau, x\textasciicircum pau, atau x\textasciicircum x.
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
@@ -1747,27 +1747,27 @@ chmod a+x bin/get_mcd_plain_new
 1500000    4500000 x^pau-pau+pau=pau@
 4500000    7150000 pau^pau-pau+pau=a@
 		\end{minted}
-		
+
 		\item Modifikasi sebagian pau ke x di awal kalimat.\\
 		\begin{itemize}
 			\item pau\textasciicircum pau-pau menjadi x\textasciicircum x-pau
 			\item pau\textasciicircum pau menjadi x\textasciicircum pau
 		\end{itemize}
-	
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
  7150000    9650000 pau^pau-pau+a=y@
  9650000   11450000 pau^pau-a+y=o@
 11450000   14000000 pau^a-y+o=c@
 		\end{minted}
-		
+
 		menjadi
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
  7150000    9650000 x^x-pau+a=y@
  9650000   11450000 x^pau-a+y=o@
 11450000   14000000 pau^a-y+o=c@
 		\end{minted}
-		
+
 		\newpage
 		\item Inti kalimat dibiarkan tidak berubah:
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
@@ -1776,40 +1776,40 @@ chmod a+x bin/get_mcd_plain_new
 24800000   26250000 c^e-p+a=t@
 26250000   30699999 e^p-a+t=pau@
 		\end{minted}
-		
+
 		\item Modifikasi sebagian pau ke x di akhir kalimat.\\
 		\begin{itemize}
 			\item +pau=pau menjadi +pau=x
 			\item -pau+pau=pau menjadi -pau+x+x
 		\end{itemize}
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 30699999   31150000 p^a-t+pau=pau@
 31150000   32650001 a^t-pau+pau=pau@
 		\end{minted}
-		
+
 		menjadi
-		
+
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 30699999   31150000 p^a-t+pau=x@
 31150000   32650001 a^t-pau+x=x@
 		\end{minted}
-		
+
 		\item Akhiran yang dibuang.\\
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 32650001   35650001 t^pau-pau+pau=x@
 35650001   37800000 pau^pau-pau+x=x@
 		\end{minted}
-		
+
 	\end{itemize}
 
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	\section{Troubleshoot}
 	Berikut beberapa trouble yang telah dipahami:
-	
+
 	\begin{itemize}
 		\item Segmen Label phonem yang kurang dari 3 di txt/raw/utts.
 		Contoh:
@@ -1824,18 +1824,18 @@ Updating :  Means Variances MixWeights/DProbs TransProbs
 - system is PLAIN
 ERROR [+2121]  HInit: Too Few Observation Sequences [0]
 		\end{minted}
-		
+
 		Dari contoh terlihat bahwa phonem \textbf{sy} pada data raw/txt/utts untuk training model kurang dari 3.
 		Phonem yang kurang terlihat pada nilai \textbf{SegLab}.
-		
+
 		Solusi: Kemungkinan:
 		\begin{itemize}
 			\item Tambah data training (raw/txt/utts) yang memuat phone tersebut.
-			\item Pastikan saat \textbf{configure} nilai variabel seperti SAMPFREQ, FRAMELEN, FRAMESHIFT,\\ 
+			\item Pastikan saat \textbf{configure} nilai variabel seperti SAMPFREQ, FRAMELEN, FRAMESHIFT,\\
 			LOWERF0, UPPERF0, dst telah pas dengan rekaman.
 		\end{itemize}
-		
-		
+
+
 		\item File full-context label yang akan disynthesis tidak tersedia.
 		Contoh:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
@@ -1843,17 +1843,17 @@ sed: can't read labels/gen/*.lab: No such file or directory
 Makefile:311: recipe for target 'list' failed
 make[1]: *** [list] Error 2
 		\end{minted}
-		
+
 		Solusi: cek folder \textbf{data/labels/gen/} apakah telah terisi full-context label.
-		
+
 		\item Ukuran data synthesis terlalu besar.
 		Contoh:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 x2x : warning: input data is over the range of type 'short'!
 		\end{minted}
-		
+
 		Solusi: Cek konten label untuk synthesis dan berdoa.
-		
+
 		\item Alignment yang tidak pas.
 		Contoh:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
@@ -1861,12 +1861,12 @@ Unable to traverse 175 states in 77 frames
 WARNING [-7324]  StepBack: Bad data or over pruning
 in /home/elokhts/.hts_sptk/bin/HERest
 		\end{minted}
-		
+
 		Atau:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 WARNING [-9999]  HSMMAlign: No tokens survived to final node of network at beam 2000
 		\end{minted}
-		
+
 		Atau:
 		\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,bgcolor=LightGray]{text}
 Making data, labels, and scp from vibid_fena_0465.lab for GV...
@@ -1874,36 +1874,36 @@ Cannot open No such file or directory at scripts/Training.pl line 1192, <SCP> li
 		\end{minted}
 
 		Solusi: Cek konten utterance untuk training dan berdoa.
-		
+
 	\end{itemize}
-	
+
 	Jika ditemukan masalah lain, solusinya berdoalah semoga masalah tersebut selesai dengan sendirinya.
-	
+
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	\section{Website}
-	
+
 	Berikut URL Website yang bermanfaat:
 	\begin{itemize}
 		\item Repository Github untuk panduan ini:\\
 		\url{https://github.com/mekatronik-achmadi/hts_grapheme}
-		
+
 		\item Sumber informasi utama:\\
 		\url{https://google.com}
-		
+
 	\end{itemize}
 
 	\newpage
 	\mbox{}
-	
+
 	\newpage
 	\section{Referensi}
-	
+
 	\url{https://google.com}
-	
+
 	\newpage
 	\mbox{}
-	
+
 \end{document}
